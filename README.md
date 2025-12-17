@@ -2,6 +2,13 @@
 
 A modern, high-performance web application for monitoring outsourced employees working at SAP. Built with Next.js 15, React 19, TypeScript, tRPC, Prisma, and Tailwind CSS.
 
+> **🚀 New to the project?** Start with our comprehensive guides:
+> - 📚 [TECH_STACK.md](./TECH_STACK.md) - Understand all technologies used
+> - 👨‍💻 [DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md) - Complete development workflow
+> - 🏗️ [ARCHITECTURE.md](./ARCHITECTURE.md) - System architecture and data flow
+> - 📝 [GIT_WORKFLOW.md](./GIT_WORKFLOW.md) - Git commands and conventions
+> - ⚡ [QUICK_REFERENCE.md](./QUICK_REFERENCE.md) - Quick lookup for common tasks
+
 ## Features
 
 ### Core Functionality
@@ -254,15 +261,34 @@ npm run lint
 - [ ] Advanced reporting and exports
 - [ ] Multi-language support
 
-## Contributing
+## 📚 Documentation
 
-Contributions are welcome! Please follow the code style and submit pull requests.
+| Document | Description |
+|----------|-------------|
+| [TECH_STACK.md](./TECH_STACK.md) | Complete guide to all technologies (Next.js, tRPC, Prisma, etc.) |
+| [DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md) | Development workflow, best practices, and common tasks |
+| [ARCHITECTURE.md](./ARCHITECTURE.md) | System architecture, data flow, and design patterns |
+| [GIT_WORKFLOW.md](./GIT_WORKFLOW.md) | Git commands, commit conventions, and branching strategy |
+| [QUICK_REFERENCE.md](./QUICK_REFERENCE.md) | Quick lookup for commands and code snippets |
 
-## License
+## 🤝 Contributing
+
+We welcome contributions! Please:
+
+1. Read [DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md) for setup instructions
+2. Follow [GIT_WORKFLOW.md](./GIT_WORKFLOW.md) for commit conventions
+3. Check [TECH_STACK.md](./TECH_STACK.md) to understand the technologies
+4. Submit pull requests with clear descriptions
+
+## 📄 License
 
 Proprietary - TIPL Employee Monitoring System
 
-## Support
+## 🆘 Support & Questions
+
+- **Technical Issues**: Check [QUICK_REFERENCE.md](./QUICK_REFERENCE.md#troubleshooting)
+- **Learning Resources**: See [TECH_STACK.md](./TECH_STACK.md#further-learning)
+- **Development Help**: Refer to [DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md)
 
 For support, contact your system administrator or TIPL IT support team.
 
