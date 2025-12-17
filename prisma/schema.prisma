@@ -1,0 +1,237 @@
+// Prisma Schema for TIPL Employee Monitoring System
+// Database: PostgreSQL 16.x
+// ORM: Prisma 5.x
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User authentication model (NextAuth.js compatible)
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?   // Hashed password for credentials provider
+  
+  role          UserRole  @default(EMPLOYEE)
+  
+  accounts      Account[]
+  sessions      Session[]
+  employee      Employee?
+  
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  @@map("users")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+// Core business models
+model Employee {
+  id           Int          @id @default(autoincrement())
+  sapId        String       @unique
+  name         String
+  email        String       @unique
+  department   String
+  position     String
+  role         UserRole     @default(EMPLOYEE)
+  status       EmployeeStatus @default(ACTIVE)
+  
+  // Linked user account
+  userId       String?      @unique
+  user         User?        @relation(fields: [userId], references: [id])
+  
+  // Relations
+  attendances  Attendance[]
+  tasks        Task[]
+  assignedTasks Task[]      @relation("TaskAssignedBy")
+  
+  // Metadata
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  
+  @@index([sapId])
+  @@index([email])
+  @@map("employees")
+}
+
+model Attendance {
+  id           Int              @id @default(autoincrement())
+  employeeId   Int
+  
+  // Timing
+  checkInTime  DateTime         @default(now())
+  checkOutTime DateTime?
+  date         DateTime         @db.Date
+  
+  // Status
+  status       AttendanceStatus @default(PRESENT)
+  isLate       Boolean          @default(false)
+  
+  // Verification data
+  location     String?          // Geo-coordinates (lat,lng)
+  deviceInfo   String?          // Device fingerprint
+  ipAddress    String?
+  
+  // Notes
+  notes        String?          @db.Text
+  
+  // Relations
+  employee     Employee         @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  
+  // Metadata
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+  
+  @@index([employeeId, date])
+  @@index([date])
+  @@index([status])
+  @@map("attendances")
+}
+
+model Task {
+  id           Int         @id @default(autoincrement())
+  
+  // Assignment
+  employeeId   Int
+  assignedById Int?
+  
+  // Task details
+  title        String
+  description  String      @db.Text
+  priority     Priority    @default(MEDIUM)
+  status       TaskStatus  @default(PENDING)
+  
+  // Timing
+  dueDate      DateTime?
+  startedAt    DateTime?
+  completedAt  DateTime?
+  
+  // Evidence
+  attachments  String[]    // URLs or file paths
+  comments     String?     @db.Text
+  
+  // Relations
+  employee     Employee    @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  assignedBy   Employee?   @relation("TaskAssignedBy", fields: [assignedById], references: [id])
+  
+  // Metadata
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  
+  @@index([employeeId])
+  @@index([status])
+  @@index([dueDate])
+  @@map("tasks")
+}
+
+model AuditLog {
+  id           Int         @id @default(autoincrement())
+  
+  // Actor
+  userId       String?
+  userName     String?
+  
+  // Action
+  action       String      // e.g., "USER_LOGIN", "ATTENDANCE_CHECKIN", "TASK_COMPLETED"
+  entity       String      // e.g., "User", "Attendance", "Task"
+  entityId     String?
+  
+  // Context
+  ipAddress    String?
+  userAgent    String?
+  location     String?
+  
+  // Data
+  metadata     Json?       // Additional context as JSON
+  outcome      String?     // "SUCCESS", "FAILURE", "ERROR"
+  
+  // Timestamp
+  timestamp    DateTime    @default(now())
+  
+  @@index([userId])
+  @@index([action])
+  @@index([timestamp])
+  @@map("audit_logs")
+}
+
+// Enums
+enum UserRole {
+  ADMIN
+  MANAGER
+  EMPLOYEE
+}
+
+enum EmployeeStatus {
+  ACTIVE
+  INACTIVE
+  ON_LEAVE
+  TERMINATED
+}
+
+enum AttendanceStatus {
+  PRESENT
+  ABSENT
+  REMOTE
+  ON_LEAVE
+  HALF_DAY
+}
+
+enum TaskStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
