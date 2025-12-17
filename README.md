@@ -12,6 +12,65 @@ A modern, high-performance web application for monitoring outsourced employees w
 > - 📝 [docs/GIT_WORKFLOW.md](./docs/GIT_WORKFLOW.md) - Git commands
 > - ⚡ [docs/QUICK_REFERENCE.md](./docs/QUICK_REFERENCE.md) - Command cheat sheet
 
+---
+
+## Core Concept: Attendance + Biometric + GPS Tracking for Salary Calculation
+
+This system tracks **when employees work**, **where they work**, and **what they accomplish**—then combines all three into an intelligent salary calculation.
+
+### The Workflow
+
+1. **Employee Attendance** (Check-In/Out)
+   - Employee opens the app on phone → clicks "Check In" with location enabled
+   - App captures GPS coordinates (latitude, longitude, accuracy) at that moment
+   - System records exact check-in timestamp
+   - App prompts for biometric verification (fingerprint/face scan)
+   - Status: "Awaiting Biometric Approval"
+
+2. **Biometric Verification** (Security Person)
+   - Security personnel reviews biometric scan in security dashboard
+   - Checks if fingerprint/face matches the employee's registered profile
+   - Can approve ("Valid attendance"), flag ("Suspicious—same location as Employee B"), or reject ("Device spoofing detected")
+   - Sends feedback to employee
+   - Status: Approved/Flagged/Rejected
+
+3. **Work Submission** (Employee)
+   - Employee submits completed work with description + proof (photos/documents)
+   - System timestamps the submission
+   - Status: "Awaiting Manager Review"
+
+4. **Manager Review** (Manager/GroupLeader)
+   - Manager views attendance summary for the day
+   - Sees biometric approval status (✓ approved, ⚠ flagged, ✗ rejected)
+   - Reviews work submissions and approves/requests corrections
+   - Can adjust attendance if needed (e.g., "GPS signal lost, but I witnessed check-in")
+
+5. **Salary Calculation** (Auto)
+   - **Hours Component**: Check-in to Check-out time (approved attendance only)
+   - **Work Component**: Number of approved tasks/work units completed
+   - **Final Pay** = (Hours × HourlyRate) + (TasksCompleted × PointValue) − (Deductions)
+   - Full breakdown visible to manager and employee
+
+### Four Roles in the System
+
+| Role | Responsibilities | Dashboard Features |
+|------|------------------|-------------------|
+| **Admin** | Configure salary formulas, manage employees, view audit logs, system settings | Configuration panel, user management, salary rules editor |
+| **Manager/GroupLeader** | Approve work, review attendance, correct mistakes, authorize payment | Attendance summary, work submissions, salary preview per employee, team view |
+| **Security** | Verify biometric scans, flag suspicious patterns, monitor attendance accuracy | Biometric log dashboard, verify fingerprints/faces, location anomaly detection |
+| **Employee** | Check in/out with GPS + biometric, submit work/proof, view pay breakdown | Check-in button (GPS + biometric), work submission form, attendance history, pay details |
+
+### Key Features
+
+- **GPS Location Tracking**: Captures latitude/longitude at check-in/out (optional continuous tracking configurable)
+- **Biometric Verification**: Fingerprint or face recognition with security approval workflow
+- **Work Proof System**: Attach photos/documents as proof of work completion
+- **Transparent Salary Calculation**: Hours + work done = pay (not just time-based)
+- **Real-Time Dashboards**: Role-specific views for all stakeholders
+- **Audit Trail**: Every action logged (who did what, when, why)
+
+---
+
 ## SDLC Overview + 2-Week Roadmap
 
 ### Software Development Life Cycle (SDLC)
