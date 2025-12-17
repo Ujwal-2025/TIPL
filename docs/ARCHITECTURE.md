@@ -650,3 +650,4 @@ This application uses a **modern monolithic architecture** where:
 For more details, see:
 - [TECH_STACK.md](./TECH_STACK.md) - Technology explanations
 - [DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md) - Development workflow
+- [START_HERE.md](../START_HERE.md) - Getting started guide

@@ -739,4 +739,4 @@ Creating a new task:
 
 ---
 
-**Questions?** Open an issue or check `DEVELOPER_GUIDE.md` for workflow tips!
+**Questions?** Open an issue or check [DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md) for workflow tips!

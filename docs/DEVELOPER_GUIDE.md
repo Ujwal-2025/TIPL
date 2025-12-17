@@ -809,7 +809,7 @@ npm start
 ## Additional Resources
 
 - **[TECH_STACK.md](./TECH_STACK.md)** - Detailed explanation of all technologies
-- **[README.md](./README.md)** - Project overview and quick start
+- **[README.md](../README.md)** - Project overview and quick start
 - **[Prisma Docs](https://www.prisma.io/docs)** - Database ORM
 - **[Next.js Docs](https://nextjs.org/docs)** - Framework
 - **[tRPC Docs](https://trpc.io/docs)** - API layer

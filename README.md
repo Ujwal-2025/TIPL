@@ -2,12 +2,15 @@
 
 A modern, high-performance web application for monitoring outsourced employees working at SAP. Built with Next.js 15, React 19, TypeScript, tRPC, Prisma, and Tailwind CSS.
 
-> **🚀 New to the project?** Start with our comprehensive guides:
-> - 📚 [TECH_STACK.md](./TECH_STACK.md) - Understand all technologies used
-> - 👨‍💻 [DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md) - Complete development workflow
-> - 🏗️ [ARCHITECTURE.md](./ARCHITECTURE.md) - System architecture and data flow
-> - 📝 [GIT_WORKFLOW.md](./GIT_WORKFLOW.md) - Git commands and conventions
-> - ⚡ [QUICK_REFERENCE.md](./QUICK_REFERENCE.md) - Quick lookup for common tasks
+> ## 🚀 **NEW HERE? → [START_HERE.md](./START_HERE.md) ← READ THIS FIRST!**
+>
+> **Quick Navigation:**
+> - 📖 [START_HERE.md](./START_HERE.md) - **Your entry point** (start here!)
+> - 📚 [docs/TECH_STACK.md](./docs/TECH_STACK.md) - Understand all technologies
+> - 👨‍💻 [docs/DEVELOPER_GUIDE.md](./docs/DEVELOPER_GUIDE.md) - Development workflow
+> - 🏗️ [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md) - System architecture
+> - 📝 [docs/GIT_WORKFLOW.md](./docs/GIT_WORKFLOW.md) - Git commands
+> - ⚡ [docs/QUICK_REFERENCE.md](./docs/QUICK_REFERENCE.md) - Command cheat sheet
 
 ## Features
 
@@ -265,20 +268,22 @@ npm run lint
 
 | Document | Description |
 |----------|-------------|
-| [TECH_STACK.md](./TECH_STACK.md) | Complete guide to all technologies (Next.js, tRPC, Prisma, etc.) |
-| [DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md) | Development workflow, best practices, and common tasks |
-| [ARCHITECTURE.md](./ARCHITECTURE.md) | System architecture, data flow, and design patterns |
-| [GIT_WORKFLOW.md](./GIT_WORKFLOW.md) | Git commands, commit conventions, and branching strategy |
-| [QUICK_REFERENCE.md](./QUICK_REFERENCE.md) | Quick lookup for commands and code snippets |
+| **[START_HERE.md](./START_HERE.md)** | **Your entry point - read this first!** |
+| [docs/TECH_STACK.md](./docs/TECH_STACK.md) | Complete guide to all technologies (Next.js, tRPC, Prisma, etc.) |
+| [docs/DEVELOPER_GUIDE.md](./docs/DEVELOPER_GUIDE.md) | Development workflow, best practices, and common tasks |
+| [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md) | System architecture, data flow, and design patterns |
+| [docs/GIT_WORKFLOW.md](./docs/GIT_WORKFLOW.md) | Git commands, commit conventions, and branching strategy |
+| [docs/QUICK_REFERENCE.md](./docs/QUICK_REFERENCE.md) | Quick lookup for commands and code snippets |
 
 ## 🤝 Contributing
 
 We welcome contributions! Please:
 
-1. Read [DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md) for setup instructions
-2. Follow [GIT_WORKFLOW.md](./GIT_WORKFLOW.md) for commit conventions
-3. Check [TECH_STACK.md](./TECH_STACK.md) to understand the technologies
-4. Submit pull requests with clear descriptions
+1. Read [START_HERE.md](./START_HERE.md) for project overview
+2. Read [docs/DEVELOPER_GUIDE.md](./docs/DEVELOPER_GUIDE.md) for setup instructions
+3. Follow [docs/GIT_WORKFLOW.md](./docs/GIT_WORKFLOW.md) for commit conventions
+4. Check [docs/TECH_STACK.md](./docs/TECH_STACK.md) to understand the technologies
+5. Submit pull requests with clear descriptions
 
 ## 📄 License
 
@@ -286,9 +291,10 @@ Proprietary - TIPL Employee Monitoring System
 
 ## 🆘 Support & Questions
 
-- **Technical Issues**: Check [QUICK_REFERENCE.md](./QUICK_REFERENCE.md#troubleshooting)
-- **Learning Resources**: See [TECH_STACK.md](./TECH_STACK.md#further-learning)
-- **Development Help**: Refer to [DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md)
+- **New to Project?**: Start with [START_HERE.md](./START_HERE.md)
+- **Technical Issues**: Check [docs/QUICK_REFERENCE.md](./docs/QUICK_REFERENCE.md#troubleshooting)
+- **Learning Resources**: See [docs/TECH_STACK.md](./docs/TECH_STACK.md#further-learning)
+- **Development Help**: Refer to [docs/DEVELOPER_GUIDE.md](./docs/DEVELOPER_GUIDE.md)
 
 For support, contact your system administrator or TIPL IT support team.
 
