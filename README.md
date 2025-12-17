@@ -12,6 +12,141 @@ A modern, high-performance web application for monitoring outsourced employees w
 > - 📝 [docs/GIT_WORKFLOW.md](./docs/GIT_WORKFLOW.md) - Git commands
 > - ⚡ [docs/QUICK_REFERENCE.md](./docs/QUICK_REFERENCE.md) - Command cheat sheet
 
+## SDLC Overview + 2-Week Roadmap
+
+### Software Development Life Cycle (SDLC)
+
+**Requirements**: 
+- Define 4 user roles (Admin, Manager, Security, Employee) and their permissions
+- Attendance flow: employee self check-in/out → GPS capture → biometric submission → security approval
+- Work tracking: employee submits work + proof → manager reviews → mark complete/needs correction
+- Salary calculation: combine hours worked + task completion into transparent pay breakdown
+- Data: BiometricLog, GPSLog, AttendanceRecord, WorkSubmission, SalaryRecord, AuditLog
+
+**Design**: 
+- Information architecture: login → role-based dashboard (separate for each role)
+- Wireframes: employee check-in UI (GPS + biometric button), security review dashboard, manager payroll view
+- Data model (Prisma): Users (roles), Employees, AttendanceRecords (with GPS/biometric fields), WorkSubmissions, SalaryCalculations, Reviews, AuditLogs
+- API design (tRPC): `auth`, `attendance` (check-in/out, history), `work` (submit/review), `salary` (calculate, view), `biometric` (security logs)
+- RBAC policies: employees can only check themselves in, managers review work, security monitors biometrics, only admins configure salary rules
+
+**Implementation**: 
+- Next.js 15 App Router with NextAuth (credentials, company-provisioned employee usernames)
+- tRPC routers with Zod validation for all inputs
+- Prisma models with GPS (lat/lng), biometric metadata, work attachments
+- File storage for proof documents (local dev, cloud-ready for production)
+- React UI (Tailwind + shadcn/ui) for dashboards, check-in button, approval workflows
+- Salary calculation engine: formula-driven (hours + task points)
+
+**Testing**: 
+- Unit tests for salary calculation, RBAC checks, attendance flow
+- Smoke tests on all dashboards
+- Biometric data validation
+- GPS accuracy checks
+- Accessibility and performance
+
+**Deployment**: 
+- Vercel deploy
+- Neon PostgreSQL
+- Environment setup (NEXTAUTH_SECRET, DATABASE_URL, etc.)
+
+**Maintenance**: 
+- Monitor biometric accuracy, audit logs
+- Payroll integrity checks
+- Employee feedback loop
+
+### 2-Week Delivery Plan (14 days)
+
+| Day | Task | Deliverable |
+|-----|------|-------------|
+| 1 | Finalize requirements: 4 roles, attendance rules, GPS/biometric specs, salary formula | Requirements doc, acceptance criteria |
+| 2 | Design: IA + wireframes (check-in, security dash, manager payroll), data model ERD, API spec | Design doc, database diagram |
+| 3 | Project scaffold: Next.js 15, Tailwind, NextAuth (4 roles), RBAC middleware | Working localhost setup, auth stubs |
+| 4 | Prisma schema: Users, Employees, BiometricLog, GPSLog, AttendanceRecord, WorkSubmission, SalaryRecord, Reviews, AuditLog | Migrations, seed data, Prisma Studio ready |
+| 5 | tRPC routers: `auth`, `attendance.checkIn`, `attendance.checkOut`, `attendance.history`, with Zod validation | All endpoints tested in Prisma Studio |
+| 6 | Employee check-in UI: button with GPS capture, biometric form stub, location map | Working check-in page on http://localhost:3000/employee/checkin |
+| 7 | Security dashboard: biometric logs, approve/reject, flag suspicious, audit trail | Security role can view all submissions |
+| 8 | Work submission: employees upload proof (images/PDF), manager review interface | Work submission flow end-to-end |
+| 9 | Salary calculation logic: hours + task points formula, transparent breakdown | Dashboard shows salary components |
+| 10 | Manager dashboard: attendance summary, work approval, payroll preview (hours + task bonus) | Manager can see team metrics |
+| 11 | Polish & UX: filters, search, responsive layout, accessibility checks | Dashboards polished, mobile-friendly |
+| 12 | Testing: unit tests for salary calc, RBAC checks, attendance validation; smoke tests | Tests pass, coverage > 70% |
+| 13 | Deploy to Vercel, run migrations on Neon, set production env vars | Live on Vercel, database synced |
+| 14 | Documentation: update START_HERE, role guides, salary formula docs, operations checklist | Handoff complete, team ready |
+
+### What I Need From You **Before We Start Day 1**
+
+1. **Salary Formula Details**
+   - Hourly rate? (e.g., $20/hour)
+   - Task/work point values? (e.g., $10 per task, or variable by type?)
+   - Deductions for missing biometric verification? (e.g., -10% pay if biometric fails)
+   - Weekly/monthly salary cycles?
+
+2. **GPS & Biometric Specs**
+   - GPS: just capture lat/lng at check-in/out, or continuous tracking?
+   - Biometric: fingerprint, face, or both?
+   - Who has biometric reader hardware (security office only, or mobile app)?
+   - Can employee use phone's face unlock, or dedicated device?
+
+3. **Attendance Rules**
+   - Can employees check-in multiple times per day? (e.g., morning + afternoon shifts)
+   - Minimum work hours per day to be marked "present"?
+   - Grace period for late check-in? (e.g., 5 min late = still present)
+
+4. **Work Submission**
+   - File types allowed for proof? (JPEG, PNG, PDF, video?)
+   - Max file size?
+   - Can employee submit multiple files per task?
+
+5. **Company Branding** (optional)
+   - Logo, color scheme, app name variations?
+
+### Scope for 2 Weeks
+
+✅ Core: attendance check-in/out, GPS capture, biometric log, manager work approval, salary calculation  
+✅ Security: biometric verification dashboard, anomaly flagging  
+✅ Salary: transparent calculation, payroll preview  
+❌ Out of scope: advanced analytics, mobile app native code, SMS notifications (future phase)
+
+---
+
+## Core Concept: Attendance + Biometric + GPS Tracking for Salary Calculation
+
+**TIPL** is an **Employee Attendance & Monitoring System** that tracks employee presence, work completion, and calculates fair salary based on **both time spent + work delivered**.
+
+### Key Features
+
+**Attendance Tracking (Employee Self-Report)**
+- Employees check-in/out via mobile app (phone)
+- GPS location captured at check-in/out (verifies work location)
+- Biometric verification (fingerprint/face) confirmed by Security personnel
+- Frequency logs: how many times employee comes/goes each day/week/month
+
+**Biometric Monitoring (Security Role)**
+- Security team monitors all biometric submissions
+- Flags suspicious/failed biometric attempts
+- Approves or rejects attendance based on biometric authenticity
+- Maintains biometric audit log
+
+**Work Tracking (Manager Role)**
+- Employees submit work completion with proof (photos, documents, evidence)
+- Managers approve/reject submissions with feedback
+- Track task completion, project progress, deliverables
+
+**Intelligent Salary Calculation**
+- **Not just hours!** Salary = (Hours Present × Hourly Rate) + (Tasks Completed × Task Points)
+- Example: 8 hours at $20/hr = $160, + 5 tasks completed at $10/task = $50 bonus → Total = $210
+- Transparency: employees can see salary breakdown in dashboard
+- Managers review and finalize payroll before processing
+
+**Role-Based Access**
+- **Admin**: System setup, user management, salary templates, reports
+- **Manager/Group Leader**: Approve work submissions, view team attendance, generate payroll summaries
+- **Security**: Monitor biometric logs, flag anomalies, verify employee presence
+- **Employee**: Check-in/out, submit work with proof, view own attendance & salary breakdown
+
+---
+
 ## Features
 
 ### Core Functionality
