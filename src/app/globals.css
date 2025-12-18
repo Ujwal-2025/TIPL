@@ -1,5 +1,20 @@
 @import "tailwindcss";
 
+/* TIPL Color Palette */
+:root {
+  /* Brand Colors */
+  --tipl-heading: #0A1931;
+  /* Dark navy - Headings / Titles */
+  --tipl-background: #B3CFE5;
+  /* Light blue - Page backgrounds */
+  --tipl-primary: #4A7FA7;
+  /* Medium blue - Primary buttons / Links */
+  --tipl-dark: #1A3D63;
+  /* Dark blue - Navigation / Footer / Accents */
+  --tipl-light: #F6FAFD;
+  /* Very light blue - Body text / Card backgrounds */
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

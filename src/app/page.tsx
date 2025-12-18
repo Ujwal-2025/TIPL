@@ -4,24 +4,24 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-950 dark:to-slate-900">
+    <div className="min-h-screen" style={{ backgroundColor: '#B3CFE5' }}>
       {/* Hero Section */}
       <div className="container mx-auto px-4 py-16">
         <div className="flex flex-col items-center justify-center space-y-8 text-center">
           <div className="space-y-4">
-            <h1 className="text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl bg-gradient-to-r from-slate-900 to-slate-700 dark:from-slate-100 dark:to-slate-300 bg-clip-text text-transparent">
+            <h1 className="text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl" style={{ color: '#0A1931' }}>
               TIPL Employee Monitoring
             </h1>
-            <p className="max-w-2xl text-xl text-slate-600 dark:text-slate-400">
+            <p className="max-w-2xl text-xl" style={{ color: '#1A3D63' }}>
               Modern, real-time attendance tracking and task management for outsourced employees at SAP
             </p>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4">
-            <Button size="lg" asChild>
+            <Button size="lg" asChild style={{ backgroundColor: '#4A7FA7', color: '#F6FAFD', border: 'none' }}>
               <Link href="/dashboard">Dashboard</Link>
             </Button>
-            <Button size="lg" variant="outline" asChild>
+            <Button size="lg" variant="outline" asChild style={{ backgroundColor: '#1A3D63', color: '#F6FAFD', border: '2px solid #4A7FA7' }}>
               <Link href="/api/auth/signin">Sign In</Link>
             </Button>
           </div>
@@ -29,14 +29,15 @@ export default function Home() {
 
         {/* Features Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
-          <Card>
+          <Card style={{ backgroundColor: '#F6FAFD', borderColor: '#4A7FA7', borderWidth: '2px' }}>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex items-center gap-2" style={{ color: '#0A1931' }}>
                 <svg
                   className="w-5 h-5"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
+                  style={{ stroke: '#4A7FA7', strokeWidth: 2 }}
                 >
                   <path
                     strokeLinecap="round"
@@ -47,12 +48,12 @@ export default function Home() {
                 </svg>
                 Real-Time Attendance
               </CardTitle>
-              <CardDescription>
+              <CardDescription style={{ color: '#1A3D63' }}>
                 Track check-ins and check-outs with geo-verification and device tracking
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+              <ul className="space-y-2 text-sm" style={{ color: '#1A3D63' }}>
                 <li>• Live status dashboard</li>
                 <li>• Late arrival detection</li>
                 <li>• Location verification</li>
@@ -61,14 +62,15 @@ export default function Home() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card style={{ backgroundColor: '#F6FAFD', borderColor: '#4A7FA7', borderWidth: '2px' }}>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex items-center gap-2" style={{ color: '#0A1931' }}>
                 <svg
                   className="w-5 h-5"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
+                  style={{ stroke: '#4A7FA7', strokeWidth: 2 }}
                 >
                   <path
                     strokeLinecap="round"
@@ -79,12 +81,12 @@ export default function Home() {
                 </svg>
                 Task Management
               </CardTitle>
-              <CardDescription>
+              <CardDescription style={{ color: '#1A3D63' }}>
                 Assign, track, and verify task completion with evidence upload
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+              <ul className="space-y-2 text-sm" style={{ color: '#1A3D63' }}>
                 <li>• Real-time task updates</li>
                 <li>• Priority management</li>
                 <li>• Evidence upload</li>
@@ -93,14 +95,15 @@ export default function Home() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card style={{ backgroundColor: '#F6FAFD', borderColor: '#4A7FA7', borderWidth: '2px' }}>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex items-center gap-2" style={{ color: '#0A1931' }}>
                 <svg
                   className="w-5 h-5"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
+                  style={{ stroke: '#4A7FA7', strokeWidth: 2 }}
                 >
                   <path
                     strokeLinecap="round"
@@ -111,12 +114,12 @@ export default function Home() {
                 </svg>
                 Secure & Compliant
               </CardTitle>
-              <CardDescription>
+              <CardDescription style={{ color: '#1A3D63' }}>
                 Enterprise-grade security with GDPR and DPDP compliance
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+              <ul className="space-y-2 text-sm" style={{ color: '#1A3D63' }}>
                 <li>• Role-based access control</li>
                 <li>• Audit logging</li>
                 <li>• Passkey authentication</li>
@@ -125,14 +128,15 @@ export default function Home() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card style={{ backgroundColor: '#F6FAFD', borderColor: '#4A7FA7', borderWidth: '2px' }}>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex items-center gap-2" style={{ color: '#0A1931' }}>
                 <svg
                   className="w-5 h-5"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
+                  style={{ stroke: '#4A7FA7', strokeWidth: 2 }}
                 >
                   <path
                     strokeLinecap="round"
@@ -143,12 +147,12 @@ export default function Home() {
                 </svg>
                 Analytics & Insights
               </CardTitle>
-              <CardDescription>
+              <CardDescription style={{ color: '#1A3D63' }}>
                 AI-powered productivity insights and anomaly detection
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+              <ul className="space-y-2 text-sm" style={{ color: '#1A3D63' }}>
                 <li>• Attendance statistics</li>
                 <li>• Task completion rates</li>
                 <li>• Predictive analytics</li>
@@ -157,14 +161,15 @@ export default function Home() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card style={{ backgroundColor: '#F6FAFD', borderColor: '#4A7FA7', borderWidth: '2px' }}>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex items-center gap-2" style={{ color: '#0A1931' }}>
                 <svg
                   className="w-5 h-5"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
+                  style={{ stroke: '#4A7FA7', strokeWidth: 2 }}
                 >
                   <path
                     strokeLinecap="round"
@@ -175,12 +180,12 @@ export default function Home() {
                 </svg>
                 SAP Integration
               </CardTitle>
-              <CardDescription>
+              <CardDescription style={{ color: '#1A3D63' }}>
                 Seamless sync with SAP SuccessFactors and HR systems
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+              <ul className="space-y-2 text-sm" style={{ color: '#1A3D63' }}>
                 <li>• Employee data sync</li>
                 <li>• Payroll export</li>
                 <li>• Single sign-on</li>
@@ -189,14 +194,15 @@ export default function Home() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card style={{ backgroundColor: '#F6FAFD', borderColor: '#4A7FA7', borderWidth: '2px' }}>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex items-center gap-2" style={{ color: '#0A1931' }}>
                 <svg
                   className="w-5 h-5"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
+                  style={{ stroke: '#4A7FA7', strokeWidth: 2 }}
                 >
                   <path
                     strokeLinecap="round"
@@ -207,12 +213,12 @@ export default function Home() {
                 </svg>
                 Mobile Ready
               </CardTitle>
-              <CardDescription>
+              <CardDescription style={{ color: '#1A3D63' }}>
                 Responsive design works on any device, anywhere
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+              <ul className="space-y-2 text-sm" style={{ color: '#1A3D63' }}>
                 <li>• Progressive Web App</li>
                 <li>• Offline support</li>
                 <li>• Push notifications</li>
@@ -224,16 +230,16 @@ export default function Home() {
 
         {/* Tech Stack */}
         <div className="mt-16 text-center">
-          <h2 className="text-2xl font-semibold mb-8">Built with Modern Technologies</h2>
-          <div className="flex flex-wrap justify-center gap-4 text-sm text-slate-600 dark:text-slate-400">
-            <span className="px-4 py-2 bg-white dark:bg-slate-800 rounded-lg border">Next.js 15</span>
-            <span className="px-4 py-2 bg-white dark:bg-slate-800 rounded-lg border">React 19</span>
-            <span className="px-4 py-2 bg-white dark:bg-slate-800 rounded-lg border">TypeScript</span>
-            <span className="px-4 py-2 bg-white dark:bg-slate-800 rounded-lg border">tRPC</span>
-            <span className="px-4 py-2 bg-white dark:bg-slate-800 rounded-lg border">Prisma</span>
-            <span className="px-4 py-2 bg-white dark:bg-slate-800 rounded-lg border">PostgreSQL</span>
-            <span className="px-4 py-2 bg-white dark:bg-slate-800 rounded-lg border">Tailwind CSS</span>
-            <span className="px-4 py-2 bg-white dark:bg-slate-800 rounded-lg border">NextAuth.js</span>
+          <h2 className="text-2xl font-semibold mb-8" style={{ color: '#0A1931' }}>Built with Modern Technologies</h2>
+          <div className="flex flex-wrap justify-center gap-4 text-sm">
+            <span className="px-4 py-2 rounded-lg border" style={{ backgroundColor: '#F6FAFD', color: '#0A1931', borderColor: '#4A7FA7', borderWidth: '2px' }}>Next.js 15</span>
+            <span className="px-4 py-2 rounded-lg border" style={{ backgroundColor: '#F6FAFD', color: '#0A1931', borderColor: '#4A7FA7', borderWidth: '2px' }}>React 19</span>
+            <span className="px-4 py-2 rounded-lg border" style={{ backgroundColor: '#F6FAFD', color: '#0A1931', borderColor: '#4A7FA7', borderWidth: '2px' }}>TypeScript</span>
+            <span className="px-4 py-2 rounded-lg border" style={{ backgroundColor: '#F6FAFD', color: '#0A1931', borderColor: '#4A7FA7', borderWidth: '2px' }}>tRPC</span>
+            <span className="px-4 py-2 rounded-lg border" style={{ backgroundColor: '#F6FAFD', color: '#0A1931', borderColor: '#4A7FA7', borderWidth: '2px' }}>Prisma</span>
+            <span className="px-4 py-2 rounded-lg border" style={{ backgroundColor: '#F6FAFD', color: '#0A1931', borderColor: '#4A7FA7', borderWidth: '2px' }}>PostgreSQL</span>
+            <span className="px-4 py-2 rounded-lg border" style={{ backgroundColor: '#F6FAFD', color: '#0A1931', borderColor: '#4A7FA7', borderWidth: '2px' }}>Tailwind CSS</span>
+            <span className="px-4 py-2 rounded-lg border" style={{ backgroundColor: '#F6FAFD', color: '#0A1931', borderColor: '#4A7FA7', borderWidth: '2px' }}>NextAuth.js</span>
           </div>
         </div>
       </div>
