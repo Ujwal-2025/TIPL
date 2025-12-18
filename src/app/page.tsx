@@ -22,7 +22,7 @@ export default function Home() {
               <Link href="/dashboard">Dashboard</Link>
             </Button>
             <Button size="lg" variant="outline" asChild style={{ backgroundColor: '#1A3D63', color: '#F6FAFD', border: '2px solid #4A7FA7' }}>
-              <Link href="/api/auth/signin">Sign In</Link>
+              <Link href="/auth/signin">Sign In</Link>
             </Button>
           </div>
         </div>
