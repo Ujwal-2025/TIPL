@@ -81,13 +81,13 @@ export default function LoginPage() {
             >
               {/* TIPL Logo Text */}
               <div className="text-center">
-                <div 
+                <div
                   className="text-8xl font-bold mb-4"
                   style={{ color: '#6366F1' }}
                 >
                   TIPL
                 </div>
-                <p 
+                <p
                   className="text-xl font-light tracking-widest"
                   style={{ color: '#A1A1AA' }}
                 >

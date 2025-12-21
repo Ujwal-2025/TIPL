@@ -50,7 +50,7 @@ export default function AttendancePage() {
                         </p>
                     </div>
                     <Button asChild style={{ backgroundColor: '#6366F1', color: '#FFFFFF' }}>
-                        <Link href="/">← Back to Home Page</Link>
+                        <Link href="/luxury">← Back to Home Page</Link>
                     </Button>
                 </motion.div>
 
@@ -159,8 +159,8 @@ export default function AttendancePage() {
                                                 </p>
                                                 <span
                                                     className={`inline-block px-3 py-1 rounded-full text-xs font-semibold mt-2 ${record.status === 'PRESENT'
-                                                            ? 'bg-green-500/20 text-green-300'
-                                                            : 'bg-yellow-500/20 text-yellow-300'
+                                                        ? 'bg-green-500/20 text-green-300'
+                                                        : 'bg-yellow-500/20 text-yellow-300'
                                                         }`}
                                                 >
                                                     {record.status}
