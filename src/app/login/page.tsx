@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
@@ -76,23 +75,31 @@ export default function LoginPage() {
             }}
           >
             <motion.div
-              className="relative w-72 h-72 lg:w-[22rem] lg:h-[22rem]"
+              className="relative w-72 h-72 lg:w-[22rem] lg:h-[22rem] flex items-center justify-center"
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <Image
-                src="/tipl_logo.jpeg"
-                alt="TIPL Logo"
-                fill
-                className="object-contain drop-shadow-2xl"
-                priority
-              />
+              {/* TIPL Logo Text */}
+              <div className="text-center">
+                <div 
+                  className="text-8xl font-bold mb-4"
+                  style={{ color: '#6366F1' }}
+                >
+                  TIPL
+                </div>
+                <p 
+                  className="text-xl font-light tracking-widest"
+                  style={{ color: '#A1A1AA' }}
+                >
+                  ATTENDANCE
+                </p>
+              </div>
 
               {/* Pulsing ring effect during animation */}
               {!logoMoved && (
                 <motion.div
                   className="absolute inset-0 rounded-full border-4"
-                  style={{ borderColor: '#4A7FA7' }}
+                  style={{ borderColor: '#6366F1' }}
                   animate={{
                     scale: [1, 1.3, 1],
                     opacity: [0.6, 0, 0.6],
