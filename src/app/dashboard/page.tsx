@@ -200,169 +200,169 @@ export default function AttendanceDashboard() {
     return (
         <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-black" style={{ backgroundColor: '#0E0F12' }}>
             <div className="space-y-6 p-6">
-            {/* Page Title */}
-            <div>
-                <h2 className="text-3xl font-bold tracking-tight text-foreground">
-                    Attendance Dashboard
-                </h2>
-                <p className="text-muted-foreground mt-2">
-                    Track employee attendance and performance metrics
-                </p>
-            </div>
+                {/* Page Title */}
+                <div>
+                    <h2 className="text-3xl font-bold tracking-tight text-foreground">
+                        Attendance Dashboard
+                    </h2>
+                    <p className="text-muted-foreground mt-2">
+                        Track employee attendance and performance metrics
+                    </p>
+                </div>
 
-            {/* Summary Cards */}
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-                <SummaryCard
-                    title="Total Present"
-                    value={summary.present}
-                    icon={Users}
-                    color="green"
-                />
-                <SummaryCard
-                    title="Late Arrivals"
-                    value={summary.late}
-                    icon={Clock}
-                    color="yellow"
-                />
-                <SummaryCard
-                    title="Absent"
-                    value={summary.absent}
-                    icon={AlertCircle}
-                    color="red"
-                />
-                <SummaryCard
-                    title="Total Employees"
-                    value={summary.total}
-                    icon={Users}
-                    color="blue"
-                />
-            </div>
+                {/* Summary Cards */}
+                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                    <SummaryCard
+                        title="Total Present"
+                        value={summary.present}
+                        icon={Users}
+                        color="green"
+                    />
+                    <SummaryCard
+                        title="Late Arrivals"
+                        value={summary.late}
+                        icon={Clock}
+                        color="yellow"
+                    />
+                    <SummaryCard
+                        title="Absent"
+                        value={summary.absent}
+                        icon={AlertCircle}
+                        color="red"
+                    />
+                    <SummaryCard
+                        title="Total Employees"
+                        value={summary.total}
+                        icon={Users}
+                        color="blue"
+                    />
+                </div>
 
-            {/* Filters Section */}
-            <Card className="p-6">
-                <h3 className="text-lg font-semibold text-foreground mb-4">Filters</h3>
-                <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4">
-                    {/* Search Input */}
-                    <div className="relative">
-                        <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                        <Input
-                            placeholder="Search by name or SAP ID..."
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            className="pl-10"
-                        />
-                    </div>
+                {/* Filters Section */}
+                <Card className="p-6">
+                    <h3 className="text-lg font-semibold text-foreground mb-4">Filters</h3>
+                    <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4">
+                        {/* Search Input */}
+                        <div className="relative">
+                            <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                            <Input
+                                placeholder="Search by name or SAP ID..."
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                className="pl-10"
+                            />
+                        </div>
 
-                    {/* Date Filter */}
-                    <div className="relative">
-                        <Calendar className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                        <Input
-                            type="date"
-                            value={selectedDate ? selectedDate.toISOString().split('T')[0] : ''}
-                            onChange={(e) => {
-                                if (e.target.value) {
-                                    const [year, month, day] = e.target.value.split('-')
-                                    setSelectedDate(new Date(parseInt(year), parseInt(month) - 1, parseInt(day)))
-                                }
+                        {/* Date Filter */}
+                        <div className="relative">
+                            <Calendar className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                            <Input
+                                type="date"
+                                value={selectedDate ? selectedDate.toISOString().split('T')[0] : ''}
+                                onChange={(e) => {
+                                    if (e.target.value) {
+                                        const [year, month, day] = e.target.value.split('-')
+                                        setSelectedDate(new Date(parseInt(year), parseInt(month) - 1, parseInt(day)))
+                                    }
+                                }}
+                                className="pl-10"
+                            />
+                        </div>
+
+                        {/* Status Filter */}
+                        <Select value={statusFilter} onValueChange={(value: any) => setStatusFilter(value)}>
+                            <SelectTrigger>
+                                <SelectValue placeholder="Filter by status" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="ALL">All Status</SelectItem>
+                                <SelectItem value="PRESENT">Present</SelectItem>
+                                <SelectItem value="LATE">Late</SelectItem>
+                                <SelectItem value="ABSENT">Absent</SelectItem>
+                            </SelectContent>
+                        </Select>
+
+                        {/* Clear Filters */}
+                        <Button
+                            variant="outline"
+                            onClick={() => {
+                                setSelectedDate(new Date())
+                                setStatusFilter('ALL')
+                                setSearchQuery('')
                             }}
-                            className="pl-10"
-                        />
+                        >
+                            Reset Filters
+                        </Button>
+                    </div>
+                </Card>
+
+                {/* Attendance Table */}
+                <Card>
+                    <div className="overflow-x-auto">
+                        <Table>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead>Employee Name</TableHead>
+                                    <TableHead>SAP ID</TableHead>
+                                    <TableHead>Check-in Time</TableHead>
+                                    <TableHead>Check-out Time</TableHead>
+                                    <TableHead>Status</TableHead>
+                                    <TableHead>Location</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {isLoading ? (
+                                    <TableRow>
+                                        <TableCell colSpan={6} className="h-24 text-center">
+                                            <LoadingState />
+                                        </TableCell>
+                                    </TableRow>
+                                ) : filteredData.length === 0 ? (
+                                    <TableRow>
+                                        <TableCell colSpan={6}>
+                                            <EmptyState />
+                                        </TableCell>
+                                    </TableRow>
+                                ) : (
+                                    filteredData.map((record) => {
+                                        const statusColor = getStatusBadgeColor(record.status)
+                                        return (
+                                            <TableRow key={record.id} className="hover:bg-muted/50">
+                                                <TableCell className="font-medium text-foreground">
+                                                    {record.employeeName}
+                                                </TableCell>
+                                                <TableCell className="text-muted-foreground">
+                                                    {record.sapId}
+                                                </TableCell>
+                                                <TableCell className="text-muted-foreground">
+                                                    {formatTime(record.checkInTime)}
+                                                </TableCell>
+                                                <TableCell className="text-muted-foreground">
+                                                    {formatTime(record.checkOutTime)}
+                                                </TableCell>
+                                                <TableCell>
+                                                    <Badge className={statusColor.className}>
+                                                        {statusColor.label}
+                                                    </Badge>
+                                                </TableCell>
+                                                <TableCell className="text-muted-foreground text-sm">
+                                                    {record.location}
+                                                </TableCell>
+                                            </TableRow>
+                                        )
+                                    })
+                                )}
+                            </TableBody>
+                        </Table>
                     </div>
 
-                    {/* Status Filter */}
-                    <Select value={statusFilter} onValueChange={(value: any) => setStatusFilter(value)}>
-                        <SelectTrigger>
-                            <SelectValue placeholder="Filter by status" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="ALL">All Status</SelectItem>
-                            <SelectItem value="PRESENT">Present</SelectItem>
-                            <SelectItem value="LATE">Late</SelectItem>
-                            <SelectItem value="ABSENT">Absent</SelectItem>
-                        </SelectContent>
-                    </Select>
-
-                    {/* Clear Filters */}
-                    <Button
-                        variant="outline"
-                        onClick={() => {
-                            setSelectedDate(new Date())
-                            setStatusFilter('ALL')
-                            setSearchQuery('')
-                        }}
-                    >
-                        Reset Filters
-                    </Button>
-                </div>
-            </Card>
-
-            {/* Attendance Table */}
-            <Card>
-                <div className="overflow-x-auto">
-                    <Table>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead>Employee Name</TableHead>
-                                <TableHead>SAP ID</TableHead>
-                                <TableHead>Check-in Time</TableHead>
-                                <TableHead>Check-out Time</TableHead>
-                                <TableHead>Status</TableHead>
-                                <TableHead>Location</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {isLoading ? (
-                                <TableRow>
-                                    <TableCell colSpan={6} className="h-24 text-center">
-                                        <LoadingState />
-                                    </TableCell>
-                                </TableRow>
-                            ) : filteredData.length === 0 ? (
-                                <TableRow>
-                                    <TableCell colSpan={6}>
-                                        <EmptyState />
-                                    </TableCell>
-                                </TableRow>
-                            ) : (
-                                filteredData.map((record) => {
-                                    const statusColor = getStatusBadgeColor(record.status)
-                                    return (
-                                        <TableRow key={record.id} className="hover:bg-muted/50">
-                                            <TableCell className="font-medium text-foreground">
-                                                {record.employeeName}
-                                            </TableCell>
-                                            <TableCell className="text-muted-foreground">
-                                                {record.sapId}
-                                            </TableCell>
-                                            <TableCell className="text-muted-foreground">
-                                                {formatTime(record.checkInTime)}
-                                            </TableCell>
-                                            <TableCell className="text-muted-foreground">
-                                                {formatTime(record.checkOutTime)}
-                                            </TableCell>
-                                            <TableCell>
-                                                <Badge className={statusColor.className}>
-                                                    {statusColor.label}
-                                                </Badge>
-                                            </TableCell>
-                                            <TableCell className="text-muted-foreground text-sm">
-                                                {record.location}
-                                            </TableCell>
-                                        </TableRow>
-                                    )
-                                })
-                            )}
-                        </TableBody>
-                    </Table>
-                </div>
-
-                {/* Table Footer */}
-                {filteredData.length > 0 && (
-                    <div className="border-t bg-muted/50 px-6 py-4 text-sm text-muted-foreground">
-                        Showing {filteredData.length} of {mockAttendanceData.length} records
-                    </div>
-                )}
-            </Card>
+                    {/* Table Footer */}
+                    {filteredData.length > 0 && (
+                        <div className="border-t bg-muted/50 px-6 py-4 text-sm text-muted-foreground">
+                            Showing {filteredData.length} of {mockAttendanceData.length} records
+                        </div>
+                    )}
+                </Card>
             </div>
         </div>
     )

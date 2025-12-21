@@ -37,7 +37,7 @@ export default function LoginPage() {
     e.preventDefault();
     // TODO: Connect to tRPC + Prisma authentication
     console.log("Login attempt:", { username, password });
-    router.push("/dashboard");
+    router.push("/luxury");
   };
 
   return (

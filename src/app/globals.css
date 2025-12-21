@@ -29,6 +29,7 @@
 
 @layer base {
   :root {
+    /* Light mode defaults - not used in this app */
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
@@ -48,6 +49,28 @@
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
     --ring: 240 5.9% 10%;
+    --radius: 0.5rem;
+
+    /* TIPL Luxury Dark Theme - Override for dark mode */
+    --background: 223 14% 6%;
+    --foreground: 0 0% 100%;
+    --card: 223 14% 11%;
+    --card-foreground: 0 0% 100%;
+    --popover: 223 14% 11%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 224 71% 60%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 223 14% 14%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 67%;
+    --muted-foreground: 0 0% 67%;
+    --accent: 224 71% 60%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 100%;
+    --input: 223 14% 14%;
+    --ring: 224 71% 60%;
     --radius: 0.5rem;
   }
 
