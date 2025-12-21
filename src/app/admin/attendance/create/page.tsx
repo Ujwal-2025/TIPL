@@ -22,7 +22,6 @@ interface FormData {
     idType: string
     idNumber: string
     // Step 4: Work Profile
-    sapId: string
     designation: string
     department: string
     companyBranch: string
@@ -37,7 +36,6 @@ interface FormData {
     // Step 6: Employment & Salary
     dateOfJoining: string
     salaryPerMonth: string
-    role: string
 }
 
 const initialFormData: FormData = {
@@ -49,7 +47,6 @@ const initialFormData: FormData = {
     panNumber: '',
     idType: '',
     idNumber: '',
-    sapId: '',
     designation: '',
     department: '',
     companyBranch: '',
@@ -62,18 +59,17 @@ const initialFormData: FormData = {
     bankBranch: '',
     dateOfJoining: '',
     salaryPerMonth: '',
-    role: 'EMPLOYEE',
 }
 
 const TOTAL_STEPS = 6
 
-export default function EmployeeCreationPage() {
+export default function AttendanceCreationPage() {
     const [currentStep, setCurrentStep] = useState(1)
     const [formData, setFormData] = useState<FormData>(initialFormData)
     const [direction, setDirection] = useState<'forward' | 'backward'>('forward')
     const [isSubmitting, setIsSubmitting] = useState(false)
 
-    const createEmployee = trpc.admin.createEmployee.useMutation()
+    const createAttendance = trpc.attendance.createAttendanceRecord.useMutation()
 
     const updateField = (field: keyof FormData, value: string) => {
         setFormData(prev => ({ ...prev, [field]: value }))
@@ -88,7 +84,7 @@ export default function EmployeeCreationPage() {
             case 3:
                 return !!formData.panNumber
             case 4:
-                return !!(formData.sapId && formData.designation && formData.department && formData.companyBranch && formData.employerName)
+                return !!(formData.designation && formData.department && formData.companyBranch && formData.employerName)
             case 5:
                 return !!(formData.pfId && formData.bankAccountNumber && formData.bankName && formData.ifscCode && formData.bankBranch)
             case 6:
@@ -115,20 +111,16 @@ export default function EmployeeCreationPage() {
 
         setIsSubmitting(true)
         try {
-            await createEmployee.mutateAsync({
-                name: `${formData.firstName} ${formData.lastName}`,
-                email: formData.email,
-                sapId: formData.sapId,
-                department: formData.department,
-                position: formData.designation,
-                role: formData.role as 'EMPLOYEE' | 'MANAGER' | 'ADMIN',
-            })
+            await createAttendance.mutateAsync({
+                ...formData,
+                salaryPerMonth: parseFloat(formData.salaryPerMonth),
+            } as any)
 
-            alert('Employee created successfully!')
+            alert('Attendance record created successfully!')
             setFormData(initialFormData)
             setCurrentStep(1)
         } catch (error) {
-            alert('Failed to create employee')
+            alert('Failed to create attendance record')
             console.error(error)
         } finally {
             setIsSubmitting(false)
@@ -155,17 +147,17 @@ export default function EmployeeCreationPage() {
             <div className="max-w-2xl mx-auto">
                 {/* Header */}
                 <div className="mb-8">
-                    <Link href="/luxury">
+                    <Link href="/admin/creation">
                         <Button variant="outline" className="mb-6 gap-2">
                             <ArrowLeft className="w-4 h-4" />
-                            Back to Home
+                            Back
                         </Button>
                     </Link>
                     <h1 className="text-3xl font-bold text-foreground">
-                        Create Employee
+                        New Attendance Record
                     </h1>
                     <p className="text-muted-foreground mt-2">
-                        Complete all steps to add a new employee
+                        Complete all steps to create an attendance record
                     </p>
                 </div>
 
@@ -215,7 +207,7 @@ export default function EmployeeCreationPage() {
                                             Basic Identity
                                         </h2>
                                         <p className="text-sm text-muted-foreground">
-                                            Let's start with basic information
+                                            Let's start with your basic information
                                         </p>
                                     </div>
 
@@ -262,7 +254,7 @@ export default function EmployeeCreationPage() {
                                             Contact & Address
                                         </h2>
                                         <p className="text-sm text-muted-foreground">
-                                            How can we reach the employee?
+                                            How can we reach you?
                                         </p>
                                     </div>
 
@@ -358,19 +350,8 @@ export default function EmployeeCreationPage() {
                                             Work Profile
                                         </h2>
                                         <p className="text-sm text-muted-foreground">
-                                            Employment details
+                                            Your employment details
                                         </p>
-                                    </div>
-
-                                    <div>
-                                        <label className="block text-sm font-medium mb-2 text-foreground">
-                                            SAP ID *
-                                        </label>
-                                        <Input
-                                            placeholder="Enter SAP ID"
-                                            value={formData.sapId}
-                                            onChange={(e) => updateField('sapId', e.target.value)}
-                                        />
                                     </div>
 
                                     <div className="grid grid-cols-2 gap-4">
@@ -511,7 +492,7 @@ export default function EmployeeCreationPage() {
                                             Employment & Salary
                                         </h2>
                                         <p className="text-sm text-muted-foreground">
-                                            Final details to complete the profile
+                                            Final details to complete your record
                                         </p>
                                     </div>
 
@@ -536,21 +517,6 @@ export default function EmployeeCreationPage() {
                                             value={formData.salaryPerMonth}
                                             onChange={(e) => updateField('salaryPerMonth', e.target.value)}
                                         />
-                                    </div>
-
-                                    <div>
-                                        <label className="block text-sm font-medium mb-2 text-foreground">
-                                            Role *
-                                        </label>
-                                        <select
-                                            value={formData.role}
-                                            onChange={(e) => updateField('role', e.target.value)}
-                                            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-                                        >
-                                            <option value="EMPLOYEE">Employee</option>
-                                            <option value="MANAGER">Manager</option>
-                                            <option value="ADMIN">Admin</option>
-                                        </select>
                                     </div>
 
                                     <div className="p-4 bg-primary/10 rounded-lg border border-primary/20">

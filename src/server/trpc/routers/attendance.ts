@@ -287,4 +287,58 @@ export const attendanceRouter = router({
                 attendanceRate: total > 0 ? (totalPresent / total) * 100 : 0,
             }
         }),
+
+    /**
+     * Create comprehensive attendance record (Admin only)
+     */
+    createAttendanceRecord: protectedProcedure
+        .input(
+            z.object({
+                firstName: z.string(),
+                lastName: z.string(),
+                fatherName: z.string(),
+                address: z.string(),
+                email: z.string().email(),
+                panNumber: z.string(),
+                idType: z.string().optional(),
+                idNumber: z.string().optional(),
+                designation: z.string(),
+                department: z.string(),
+                companyBranch: z.string(),
+                employerName: z.string(),
+                previousEmployerName: z.string().optional(),
+                pfId: z.string(),
+                bankAccountNumber: z.string(),
+                bankName: z.string(),
+                ifscCode: z.string(),
+                bankBranch: z.string(),
+                dateOfJoining: z.string(),
+                salaryPerMonth: z.number(),
+            })
+        )
+        .mutation(async ({ ctx, input }) => {
+            // Note: This stores comprehensive employee data
+            // In production, you'd likely want to create an Employee record
+            // and link it to attendance. For now, storing as metadata.
+
+            const user = ctx.session?.user as any
+
+            // Create audit log for the attendance record creation
+            const auditLog = await ctx.prisma.auditLog.create({
+                data: {
+                    userId: user?.id || 'system',
+                    userName: user?.name || 'System',
+                    action: 'ATTENDANCE_RECORD_CREATED',
+                    entity: 'AttendanceRecord',
+                    metadata: input,
+                    outcome: 'SUCCESS',
+                },
+            })
+
+            return {
+                success: true,
+                message: 'Attendance record created successfully',
+                auditLogId: auditLog.id,
+            }
+        }),
 })

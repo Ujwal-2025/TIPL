@@ -20,6 +20,9 @@ const getItemLink = (item: string) => {
     if (itemLower === 'project') {
         return '/admin/creation/project';
     }
+    if (itemLower === 'attendance') {
+        return '/admin/attendance/create';
+    }
     return `#${itemLower}`;
 };
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import NavDropdown from "./NavDropdown";
@@ -8,6 +9,7 @@ import Link from "next/link";
 
 export default function Navbar() {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const pathname = usePathname();
 
     // Navigation links with their routes
     const navLinks = [
@@ -53,7 +55,12 @@ export default function Navbar() {
                         onMouseLeave={() => setIsDropdownOpen(false)}
                     >
                         <button
-                            className="text-white/90 hover:text-white transition-colors text-sm font-medium"
+                            className={cn(
+                                "relative text-sm font-medium transition-all duration-200",
+                                pathname?.startsWith('/admin/creation')
+                                    ? "text-white after:absolute after:bottom-[-8px] after:left-0 after:right-0 after:h-[2px] after:bg-white after:rounded-full after:shadow-[0_0_8px_rgba(255,255,255,0.6)]"
+                                    : "text-white/90 hover:text-white"
+                            )}
                         >
                             Creation
                         </button>
@@ -61,25 +68,33 @@ export default function Navbar() {
                             {isDropdownOpen && (
                                 <NavDropdown
                                     onClose={() => setIsDropdownOpen(false)}
-                                    items={["Employee", "Project", "Manager"]}
+                                    items={["Employee", "Project", "Manager", "Attendance"]}
                                 />
                             )}
                         </AnimatePresence>
                     </div>
 
                     {/* Other Nav Links */}
-                    {navLinks.map((link, index) => (
-                        <Link key={link.name} href={link.href}>
-                            <motion.div
-                                className="text-white/80 hover:text-white transition-colors text-sm font-medium cursor-pointer"
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: 0.4 + index * 0.1, duration: 0.5 }}
-                            >
-                                {link.name}
-                            </motion.div>
-                        </Link>
-                    ))}
+                    {navLinks.map((link, index) => {
+                        const isActive = pathname === link.href;
+                        return (
+                            <Link key={link.name} href={link.href}>
+                                <motion.div
+                                    className={cn(
+                                        "relative text-sm font-medium cursor-pointer transition-all duration-200",
+                                        isActive
+                                            ? "text-white after:absolute after:bottom-[-8px] after:left-0 after:right-0 after:h-[2px] after:bg-white after:rounded-full after:shadow-[0_0_8px_rgba(255,255,255,0.6)]"
+                                            : "text-white/80 hover:text-white"
+                                    )}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ delay: 0.4 + index * 0.1, duration: 0.5 }}
+                                >
+                                    {link.name}
+                                </motion.div>
+                            </Link>
+                        );
+                    })}
                 </motion.div>
             </div>
         </motion.nav>

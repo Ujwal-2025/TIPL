@@ -46,17 +46,17 @@ export function AdminSidebar({ activeSection }: AdminSidebarProps) {
                         key={section.id}
                         href={section.href}
                         className={cn(
-                            'block p-4 rounded-lg transition-all duration-200',
+                            'relative block p-4 rounded-lg transition-all duration-200',
                             activeSection === section.id
-                                ? 'bg-primary/10 border border-primary'
+                                ? 'bg-primary/10 border border-primary shadow-[0_0_20px_rgba(99,102,241,0.15)] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:w-1 before:h-8 before:bg-primary before:rounded-r-full before:shadow-[0_0_8px_rgba(99,102,241,0.5)]'
                                 : 'border border-transparent hover:bg-secondary/50'
                         )}
                     >
                         <div
                             className={cn(
-                                'font-semibold',
+                                'font-semibold transition-all duration-200',
                                 activeSection === section.id
-                                    ? 'text-primary'
+                                    ? 'text-primary brightness-110'
                                     : 'text-foreground'
                             )}
                         >
