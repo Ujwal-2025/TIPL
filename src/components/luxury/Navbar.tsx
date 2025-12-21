@@ -36,11 +36,13 @@ export default function Navbar() {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.3, duration: 0.5 }}
                 >
-                    {/* Creation with Dropdown */}
-                    <div className="relative">
+                    {/* Creation with Dropdown (keeps open while hovering trigger or menu) */}
+                    <div
+                        className="relative"
+                        onMouseEnter={() => setIsDropdownOpen(true)}
+                        onMouseLeave={() => setIsDropdownOpen(false)}
+                    >
                         <button
-                            onMouseEnter={() => setIsDropdownOpen(true)}
-                            onMouseLeave={() => setIsDropdownOpen(false)}
                             className="text-white/90 hover:text-white transition-colors text-sm font-medium"
                         >
                             Creation

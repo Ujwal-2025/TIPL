@@ -15,7 +15,6 @@ export default function NavDropdown({ items, onClose }: NavDropdownProps) {
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
             className="absolute top-full mt-2 left-0 bg-black/60 backdrop-blur-xl rounded-lg border border-white/10 overflow-hidden shadow-2xl"
-            onMouseLeave={onClose}
         >
             {items.map((item, index) => (
                 <motion.a

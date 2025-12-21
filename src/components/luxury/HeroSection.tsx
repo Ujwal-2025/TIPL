@@ -35,38 +35,13 @@ export default function HeroSection() {
                 calculation. Built for teams that value accuracy and fairness.
             </motion.p>
 
-            {/* CTA Buttons */}
+            {/* CTA: View Attendance only */}
             <motion.div
-                className="mt-10 flex flex-col sm:flex-row gap-4 items-center"
+                className="mt-10 flex items-center"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.7, duration: 0.6 }}
             >
-                <motion.button
-                    className="px-8 py-4 rounded-full bg-gradient-to-r from-indigo-600 to-indigo-700 text-white font-semibold text-base relative group overflow-hidden border border-indigo-500/50 hover:border-indigo-400 transition-all"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                >
-                    {/* Glow Effect */}
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity bg-indigo-500/20 blur-xl" />
-                    <span className="relative flex items-center gap-2">
-                        Get Started
-                        <svg
-                            className="w-4 h-4 group-hover:translate-x-1 transition-transform"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M13 7l5 5m0 0l-5 5m5-5H6"
-                            />
-                        </svg>
-                    </span>
-                </motion.button>
-
                 <Link href="/attendance">
                     <motion.button
                         className="px-8 py-4 rounded-full bg-transparent text-white font-semibold text-base border border-indigo-500/50 hover:border-indigo-400 transition-all"
