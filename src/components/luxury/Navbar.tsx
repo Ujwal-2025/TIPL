@@ -4,9 +4,17 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import NavDropdown from "./NavDropdown";
+import Link from "next/link";
 
 export default function Navbar() {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+    // Navigation links with their routes
+    const navLinks = [
+        { name: "Progress", href: "/admin/progress" },
+        { name: "Salary", href: "/admin/salary" },
+        { name: "Attendance", href: "/attendance" },
+    ];
 
     return (
         <motion.nav
@@ -26,7 +34,9 @@ export default function Navbar() {
                     transition={{ delay: 0.2, duration: 0.5 }}
                     className="flex-shrink-0"
                 >
-                    <h1 className="text-white font-bold text-xl tracking-tight">TIPL</h1>
+                    <Link href="/luxury">
+                        <h1 className="text-white font-bold text-xl tracking-tight cursor-pointer">TIPL</h1>
+                    </Link>
                 </motion.div>
 
                 {/* Navigation Links */}
@@ -58,17 +68,17 @@ export default function Navbar() {
                     </div>
 
                     {/* Other Nav Links */}
-                    {["Progress", "Salary", "Attendance"].map((item, index) => (
-                        <motion.a
-                            key={item}
-                            href={`#${item.toLowerCase()}`}
-                            className="text-white/80 hover:text-white transition-colors text-sm font-medium"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 0.4 + index * 0.1, duration: 0.5 }}
-                        >
-                            {item}
-                        </motion.a>
+                    {navLinks.map((link, index) => (
+                        <Link key={link.name} href={link.href}>
+                            <motion.div
+                                className="text-white/80 hover:text-white transition-colors text-sm font-medium cursor-pointer"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.4 + index * 0.1, duration: 0.5 }}
+                            >
+                                {link.name}
+                            </motion.div>
+                        </Link>
                     ))}
                 </motion.div>
             </div>

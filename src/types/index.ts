@@ -2,10 +2,10 @@
  * Shared TypeScript type definitions for the TIPL Employee Monitoring App
  */
 
-import type { UserRole, EmployeeStatus, AttendanceStatus, TaskStatus, Priority } from '@prisma/client'
+import type { UserRole, EmployeeStatus, AttendanceStatus, TaskStatus, Priority, ProjectStatus } from '@prisma/client'
 
 // Re-export Prisma enums for convenience
-export type { UserRole, EmployeeStatus, AttendanceStatus, TaskStatus, Priority }
+export type { UserRole, EmployeeStatus, AttendanceStatus, TaskStatus, Priority, ProjectStatus }
 
 // User session type
 export interface SessionUser {
@@ -114,4 +114,71 @@ export interface DashboardStats {
     tasks: TaskStats
     activeEmployees: number
     pendingAlerts: number
+}
+
+// Admin - Employee types
+export interface EmployeeCreate {
+    sapId: string
+    name: string
+    email: string
+    department: string
+    position: string
+    baseSalary: number
+    managerId?: number
+}
+
+// Admin - Manager types
+export interface ManagerCreate {
+    name: string
+    email: string
+    department: string
+}
+
+// Admin - Project types
+export interface ProjectCreate {
+    name: string
+    description?: string
+    startDate: Date
+    endDate?: Date
+    managerId?: number
+}
+
+export interface ProjectAssignmentCreate {
+    projectId: number
+    employeeId: number
+    taskDescription?: string
+}
+
+// Admin - Salary types
+export interface SalaryBreakdown {
+    baseSalary: number
+    attendanceBonus: number
+    completionBonus: number
+    deductions: number
+    totalAmount: number
+    isPaid: boolean
+    paidDate?: Date
+}
+
+export interface ProjectProgress {
+    id: number
+    name: string
+    description?: string
+    status: ProjectStatus
+    startDate: Date
+    endDate?: Date
+    completionPercentage: number
+    totalAssignments: number
+    completedAssignments: number
+    pendingAssignments: ProjectAssignmentDetail[]
+}
+
+export interface ProjectAssignmentDetail {
+    id: number
+    employeeName: string
+    employeeId: number
+    taskDescription?: string
+    completionPercentage: number
+    assignedAt: Date
+    completedAt?: Date
 }
