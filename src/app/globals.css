@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* TIPL Color Palette */
+/* TIPL Color Palette - Original */
 :root {
   /* Brand Colors */
   --tipl-heading: #0A1931;
@@ -13,6 +13,18 @@
   /* Dark blue - Navigation / Footer / Accents */
   --tipl-light: #F6FAFD;
   /* Very light blue - Body text / Card backgrounds */
+
+  /* New Luxury Dark Palette */
+  --luxury-bg-main: #0E0F12;
+  --luxury-bg-secondary: #14161A;
+  --luxury-surface: #1A1D23;
+  --luxury-surface-alt: #20242C;
+  --luxury-text: #FFFFFF;
+  --luxury-text-secondary: #A1A1AA;
+  --luxury-text-muted: #6B7280;
+  --luxury-accent: #6366F1;
+  --luxury-accent-light: rgba(99, 102, 241, 0.35);
+  --luxury-border: rgba(255, 255, 255, 0.06);
 }
 
 @layer base {

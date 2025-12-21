@@ -198,7 +198,8 @@ export default function AttendanceDashboard() {
     }, [mockAttendanceData])
 
     return (
-        <div className="space-y-6 p-6">
+        <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-black" style={{ backgroundColor: '#0E0F12' }}>
+            <div className="space-y-6 p-6">
             {/* Page Title */}
             <div>
                 <h2 className="text-3xl font-bold tracking-tight text-foreground">
@@ -362,6 +363,7 @@ export default function AttendanceDashboard() {
                     </div>
                 )}
             </Card>
+            </div>
         </div>
     )
 }
