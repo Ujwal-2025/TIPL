@@ -332,13 +332,14 @@
     0 0 16px rgba(99,102,241,0.06);
   font-family: inherit;
   font-size: 0.95rem;
+  font-weight: 500;
   transition: border-color 200ms ease, box-shadow 200ms ease, transform 200ms cubic-bezier(.2,.9,.2,1);
   outline: none;
   cursor: pointer;
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23FFFFFF' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236366F1' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 0.8rem center;
   padding-right: 2.5rem;
@@ -363,22 +364,25 @@
     0 0 24px rgba(99,102,241,0.12);
 }
 
+/* Option styling - applied across all browsers */
 .glassy-select option {
-  background-color: #1A1D23;
+  background-color: #0E0F12;
   color: #FFFFFF;
-  padding: 0.5rem;
-  border: none;
-  border-radius: 6px;
+  padding: 0.65rem;
   margin: 0.25rem 0;
+  border: 1px solid rgba(99,102,241,0.2);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 0.95rem;
 }
 
 .glassy-select option:hover {
-  background: linear-gradient(90deg, rgba(99,102,241,0.95), rgba(99,102,241,0.8));
+  background: linear-gradient(90deg, rgba(99,102,241,0.25), rgba(99,102,241,0.15));
   color: #FFFFFF;
 }
 
 .glassy-select option:checked {
-  background: linear-gradient(90deg, rgba(99,102,241,0.95), rgba(99,102,241,0.8));
+  background: linear-gradient(90deg, rgba(99,102,241,0.4), rgba(99,102,241,0.3));
   color: #FFFFFF;
 }
 
