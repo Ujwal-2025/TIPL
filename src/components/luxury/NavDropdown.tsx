@@ -36,14 +36,14 @@ export default function NavDropdown({ items, onClose }: NavDropdownProps) {
             className="absolute top-full mt-2 left-0 bg-black/60 backdrop-blur-xl rounded-lg border border-white/10 overflow-hidden shadow-2xl"
         >
             {items.map((item, index) => (
-                <Link key={item} href={getItemLink(item)}>
-                    <a
-                        className="glassy-nav__item block px-4 py-3 text-white/80 hover:text-white hover:bg-white/5 transition-colors text-sm font-medium cursor-pointer"
-                        style={{ borderRadius: 8 }}
-                        onClick={onClose}
-                    >
-                        {item}
-                    </a>
+                <Link
+                    key={item}
+                    href={getItemLink(item)}
+                    className="glassy-nav__item block px-4 py-3 text-white/80 hover:text-white hover:bg-white/5 transition-colors text-sm font-medium cursor-pointer"
+                    style={{ borderRadius: 8 }}
+                    onClick={onClose}
+                >
+                    {item}
                 </Link>
             ))}
         </motion.div>

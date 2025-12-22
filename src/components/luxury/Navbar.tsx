@@ -79,17 +79,17 @@ export default function Navbar() {
                         {navLinks.map((link, index) => {
                             const isActive = pathname === link.href;
                             return (
-                                <Link key={link.name} href={link.href}>
-                                    <a
-                                        className={cn(
-                                            'glassy-nav__item text-sm font-medium',
-                                            isActive ? 'glassy-nav__item--active' : ''
-                                        )}
-                                        aria-current={isActive ? 'page' : undefined}
-                                        tabIndex={0}
-                                    >
-                                        {link.name}
-                                    </a>
+                                <Link
+                                    key={link.name}
+                                    href={link.href}
+                                    className={cn(
+                                        'glassy-nav__item text-sm font-medium',
+                                        isActive ? 'glassy-nav__item--active' : ''
+                                    )}
+                                    aria-current={isActive ? 'page' : undefined}
+                                    tabIndex={0}
+                                >
+                                    {link.name}
                                 </Link>
                             );
                         })}
