@@ -33,12 +33,7 @@ export default function NavDropdown({ items, onClose }: NavDropdownProps) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -12, scale: 0.95 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="absolute top-full mt-3 left-0 backdrop-blur-xl rounded-lg border border-white/10 overflow-hidden shadow-2xl"
-            style={{
-                background: 'transparent',
-                backdropFilter: 'blur(12px) saturate(140%) brightness(1.05)',
-                WebkitBackdropFilter: 'blur(12px) saturate(140%) brightness(1.05)',
-            }}
+            className="absolute top-full mt-4 left-1/2 -translate-x-1/2 flex flex-col gap-3"
         >
             {items.map((item, index) => (
                 <motion.div
@@ -49,7 +44,7 @@ export default function NavDropdown({ items, onClose }: NavDropdownProps) {
                 >
                     <Link
                         href={getItemLink(item)}
-                        className="glassy-nav__item block px-5 py-3 text-white/85 hover:text-white hover:bg-white/8 transition-all duration-200 text-sm font-medium cursor-pointer"
+                        className="glassy-nav__item px-6 py-3 text-white/85 hover:text-white transition-all duration-200 text-sm font-medium cursor-pointer whitespace-nowrap"
                         style={{ borderRadius: 8 }}
                         onClick={onClose}
                     >
