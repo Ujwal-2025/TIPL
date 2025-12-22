@@ -33,7 +33,7 @@ export default function NavDropdown({ items, onClose }: NavDropdownProps) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -12, scale: 0.95 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="absolute top-full mt-4 left-1/2 -translate-x-1/2 flex flex-col gap-3"
+            className="absolute top-full mt-4 left-1/2 -translate-x-1/2 flex flex-col gap-1.5"
         >
             {items.map((item, index) => (
                 <motion.div
