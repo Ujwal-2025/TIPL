@@ -44,7 +44,8 @@ export default function HeroSection() {
             >
                 <Link href="/admin/attendance/group">
                     <motion.button
-                        className="px-8 py-4 rounded-full bg-transparent text-white font-semibold text-base border border-indigo-500/50 hover:border-indigo-400 transition-all"
+                        className="glassy-nav__item glassy-nav__item--medium font-semibold"
+                        style={{ color: '#FFFFFF' }}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                     >
