@@ -6,7 +6,7 @@ import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
 
 interface AdminSidebarProps {
-    activeSection: 'creation' | 'progress' | 'salary'
+    activeSection: 'creation' | 'progress' | 'salary' | 'attendance'
 }
 
 export function AdminSidebar({ activeSection }: AdminSidebarProps) {
@@ -28,6 +28,12 @@ export function AdminSidebar({ activeSection }: AdminSidebarProps) {
             label: 'Salary',
             description: 'Manage salary & payments',
             href: '/admin/salary',
+        },
+        {
+            id: 'attendance',
+            label: 'Attendance',
+            description: 'View attendance charts',
+            href: '/admin/attendance/group',
         },
     ]
 

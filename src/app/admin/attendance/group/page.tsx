@@ -1,8 +1,11 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import AttendancePieChart from '@/components/attendance/AttendancePieChart'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 export default function GroupAttendancePage() {
   // Hardcoded data as per requirements - in production, this would come from an API
@@ -12,6 +15,8 @@ export default function GroupAttendancePage() {
     lateComingEmployees: 10,
     earlyCheckoutEmployees: 5,
   }
+
+  const router = useRouter()
 
   // Calculate absent employees
   const absentEmployees = attendanceData.totalEmployees - attendanceData.presentToday
@@ -46,6 +51,26 @@ export default function GroupAttendancePage() {
   return (
     <div className="min-h-screen p-6" style={{ backgroundColor: '#0E0F12' }}>
       <div className="max-w-7xl mx-auto">
+        {/* Navigation Buttons */}
+        <div className="flex items-center justify-between mb-8">
+          <Button
+            onClick={() => router.back()}
+            variant="outline"
+            className="flex items-center gap-2"
+            style={{ borderColor: 'rgba(255,255,255,0.1)', color: '#FFFFFF' }}
+          >
+            <ChevronLeft className="w-4 h-4" />
+            Back
+          </Button>
+          <Button
+            onClick={() => router.push('/admin/attendance/employee')}
+            className="flex items-center gap-2"
+            style={{ backgroundColor: '#6366F1', color: '#FFFFFF', border: 'none' }}
+          >
+            Next: Individual View
+            <ChevronRight className="w-4 h-4" />
+          </Button>
+        </div>
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-4xl font-bold mb-2" style={{ color: '#FFFFFF' }}>
