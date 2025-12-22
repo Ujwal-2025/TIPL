@@ -44,6 +44,7 @@ const mockEmployees = [
 export default function SingleEmployeeAttendancePage() {
   const [selectedEmployeeId, setSelectedEmployeeId] = useState(mockEmployees[0].id)
   const [selectedDate, setSelectedDate] = useState<Date>(new Date())
+  const [viewMode, setViewMode] = useState<'daily' | 'monthly'>('monthly')
 
   // Find selected employee
   const selectedEmployee = mockEmployees.find((emp) => emp.id === selectedEmployeeId)
@@ -365,29 +366,58 @@ export default function SingleEmployeeAttendancePage() {
 
               {/* Charts Section */}
               <div className="lg:col-span-2 space-y-6">
-                {/* Daily Chart */}
-                <div>
-                  <h3 style={{ color: '#FFFFFF' }} className="font-semibold mb-4">
-                    {format(selectedDate, 'EEEE, MMM dd, yyyy')}
-                  </h3>
-                  <EmployeeAttendancePieChart
-                    data={dailyPieChartData.length > 0 ? dailyPieChartData : [
-                      { name: 'No Data', value: 1, color: '#6B7280' }
-                    ]}
-                    title="Daily Attendance"
-                  />
+                {/* Toggle Buttons */}
+                <div className="flex gap-4 mb-4">
+                  <Button
+                    onClick={() => setViewMode('daily')}
+                    className="flex-1"
+                    style={{
+                      backgroundColor: viewMode === 'daily' ? '#6366F1' : '#1A1D23',
+                      color: '#FFFFFF',
+                      border: viewMode === 'daily' ? '1px solid #6366F1' : '1px solid rgba(255,255,255,0.1)',
+                    }}
+                  >
+                    Daily View
+                  </Button>
+                  <Button
+                    onClick={() => setViewMode('monthly')}
+                    className="flex-1"
+                    style={{
+                      backgroundColor: viewMode === 'monthly' ? '#6366F1' : '#1A1D23',
+                      color: '#FFFFFF',
+                      border: viewMode === 'monthly' ? '1px solid #6366F1' : '1px solid rgba(255,255,255,0.1)',
+                    }}
+                  >
+                    Monthly View
+                  </Button>
                 </div>
 
-                {/* Monthly Chart */}
-                <div>
-                  <h3 style={{ color: '#FFFFFF' }} className="font-semibold mb-4">
-                    Monthly Summary
-                  </h3>
-                  <EmployeeAttendancePieChart
-                    data={monthlyPieChartData}
-                    title="Monthly Attendance"
-                  />
-                </div>
+                {/* Chart Display */}
+                {viewMode === 'daily' && (
+                  <div className="transition-opacity duration-300">
+                    <h3 style={{ color: '#FFFFFF' }} className="font-semibold mb-4">
+                      {format(selectedDate, 'EEEE, MMM dd, yyyy')}
+                    </h3>
+                    <EmployeeAttendancePieChart
+                      data={dailyPieChartData.length > 0 ? dailyPieChartData : [
+                        { name: 'No Data', value: 1, color: '#6B7280' }
+                      ]}
+                      title="Daily Attendance"
+                    />
+                  </div>
+                )}
+
+                {viewMode === 'monthly' && (
+                  <div className="transition-opacity duration-300">
+                    <h3 style={{ color: '#FFFFFF' }} className="font-semibold mb-4">
+                      Monthly Summary
+                    </h3>
+                    <EmployeeAttendancePieChart
+                      data={monthlyPieChartData}
+                      title="Monthly Attendance"
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </CardContent>
