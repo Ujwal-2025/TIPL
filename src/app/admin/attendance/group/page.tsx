@@ -54,13 +54,13 @@ export default function GroupAttendancePage() {
         {/* Navigation Buttons */}
         <div className="flex items-center justify-between mb-8">
           <Button
-            onClick={() => router.back()}
+            onClick={() => router.push('/dashboard')}
             variant="outline"
             className="flex items-center gap-2"
             style={{ borderColor: 'rgba(255,255,255,0.1)', color: '#FFFFFF' }}
           >
             <ChevronLeft className="w-4 h-4" />
-            Back
+            Home
           </Button>
           <Button
             onClick={() => router.push('/admin/attendance/employee')}
