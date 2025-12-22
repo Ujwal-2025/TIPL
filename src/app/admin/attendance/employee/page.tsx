@@ -1,0 +1,272 @@
+'use client'
+
+import { useState } from 'react'
+import EmployeeAttendancePieChart from '@/components/attendance/EmployeeAttendancePieChart'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+
+// Mock employee data - in production, this would come from API/database
+const mockEmployees = [
+  {
+    id: 'EMP001',
+    tiplId: 'TIPL-001',
+    sapId: 'SAP-0001',
+    name: 'John Doe',
+    totalWorkingDays: 16,
+    presentDays: 10,
+    lateDays: 3,
+  },
+  {
+    id: 'EMP002',
+    tiplId: 'TIPL-002',
+    sapId: 'SAP-0002',
+    name: 'Jane Smith',
+    totalWorkingDays: 16,
+    presentDays: 14,
+    lateDays: 1,
+  },
+  {
+    id: 'EMP003',
+    tiplId: 'TIPL-003',
+    sapId: 'SAP-0003',
+    name: 'Mike Johnson',
+    totalWorkingDays: 16,
+    presentDays: 12,
+    lateDays: 2,
+  },
+]
+
+export default function SingleEmployeeAttendancePage() {
+  const [selectedEmployeeId, setSelectedEmployeeId] = useState(mockEmployees[0].id)
+
+  // Find selected employee
+  const selectedEmployee = mockEmployees.find((emp) => emp.id === selectedEmployeeId)
+
+  if (!selectedEmployee) {
+    return <div>Employee not found</div>
+  }
+
+  // Calculate attendance metrics
+  const absentDays =
+    selectedEmployee.totalWorkingDays -
+    selectedEmployee.presentDays
+  const earlyCheckoutDays =
+    selectedEmployee.presentDays -
+    selectedEmployee.lateDays -
+    (selectedEmployee.presentDays -
+      selectedEmployee.lateDays -
+      absentDays)
+
+  // Prepare data for pie chart
+  const pieChartData = [
+    {
+      name: 'Present Days',
+      value: selectedEmployee.presentDays - selectedEmployee.lateDays,
+      color: '#10B981',
+    },
+    {
+      name: 'Late Coming Days',
+      value: selectedEmployee.lateDays,
+      color: '#F59E0B',
+    },
+    {
+      name: 'Early Checkout Days',
+      value: Math.max(0, selectedEmployee.presentDays - selectedEmployee.lateDays - (selectedEmployee.presentDays - selectedEmployee.lateDays)),
+      color: '#8B5CF6',
+    },
+    {
+      name: 'Absent Days',
+      value: absentDays,
+      color: '#EF4444',
+    },
+  ].filter((item) => item.value > 0) // Only show categories with values > 0
+
+  return (
+    <div className="min-h-screen p-6" style={{ backgroundColor: '#0E0F12' }}>
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="mb-8">
+          <h1 className="text-4xl font-bold mb-2" style={{ color: '#FFFFFF' }}>
+            Employee Attendance Summary
+          </h1>
+          <p style={{ color: '#A1A1AA' }}>
+            Individual attendance overview for selected employee
+          </p>
+        </div>
+
+        {/* Employee Selection */}
+        <Card
+          className="mb-8"
+          style={{
+            backgroundColor: '#1A1D23',
+            borderColor: 'rgba(255,255,255,0.06)',
+            borderWidth: '1px',
+          }}
+        >
+          <CardHeader>
+            <CardTitle style={{ color: '#FFFFFF' }}>Select Employee</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <select
+              value={selectedEmployeeId}
+              onChange={(e) => setSelectedEmployeeId(e.target.value)}
+              className="w-full px-4 py-2 rounded-lg border"
+              style={{
+                backgroundColor: '#0E0F12',
+                color: '#FFFFFF',
+                borderColor: 'rgba(255,255,255,0.1)',
+              }}
+            >
+              {mockEmployees.map((emp) => (
+                <option key={emp.id} value={emp.id}>
+                  {emp.name} - {emp.tiplId}
+                </option>
+              ))}
+            </select>
+          </CardContent>
+        </Card>
+
+        {/* Employee Details */}
+        <Card
+          className="mb-8"
+          style={{
+            backgroundColor: '#1A1D23',
+            borderColor: 'rgba(255,255,255,0.06)',
+            borderWidth: '1px',
+          }}
+        >
+          <CardHeader>
+            <CardTitle style={{ color: '#FFFFFF' }}>
+              {selectedEmployee.name}
+            </CardTitle>
+            <CardDescription style={{ color: '#A1A1AA' }}>
+              Employee identification and metrics
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div>
+                <p className="text-sm" style={{ color: '#A1A1AA' }}>
+                  TIPL ID
+                </p>
+                <p className="text-lg font-semibold" style={{ color: '#FFFFFF' }}>
+                  {selectedEmployee.tiplId}
+                </p>
+              </div>
+              <div>
+                <p className="text-sm" style={{ color: '#A1A1AA' }}>
+                  SAP ID
+                </p>
+                <p className="text-lg font-semibold" style={{ color: '#FFFFFF' }}>
+                  {selectedEmployee.sapId}
+                </p>
+              </div>
+              <div>
+                <p className="text-sm" style={{ color: '#A1A1AA' }}>
+                  Total Working Days
+                </p>
+                <p className="text-lg font-semibold" style={{ color: '#FFFFFF' }}>
+                  {selectedEmployee.totalWorkingDays}
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Summary Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <Card style={{ backgroundColor: '#1A1D23', borderColor: 'rgba(255,255,255,0.06)', borderWidth: '1px' }}>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-sm font-medium" style={{ color: '#A1A1AA' }}>
+                Present Days
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold" style={{ color: '#10B981' }}>
+                {selectedEmployee.presentDays}
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card style={{ backgroundColor: '#1A1D23', borderColor: 'rgba(255,255,255,0.06)', borderWidth: '1px' }}>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-sm font-medium" style={{ color: '#A1A1AA' }}>
+                Late Coming
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold" style={{ color: '#F59E0B' }}>
+                {selectedEmployee.lateDays}
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card style={{ backgroundColor: '#1A1D23', borderColor: 'rgba(255,255,255,0.06)', borderWidth: '1px' }}>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-sm font-medium" style={{ color: '#A1A1AA' }}>
+                Absent Days
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold" style={{ color: '#EF4444' }}>
+                {absentDays}
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card style={{ backgroundColor: '#1A1D23', borderColor: 'rgba(255,255,255,0.06)', borderWidth: '1px' }}>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-sm font-medium" style={{ color: '#A1A1AA' }}>
+                Attendance Rate
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold" style={{ color: '#6366F1' }}>
+                {((selectedEmployee.presentDays / selectedEmployee.totalWorkingDays) * 100).toFixed(1)}%
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Pie Chart Card */}
+        <Card
+          style={{
+            backgroundColor: '#1A1D23',
+            borderColor: 'rgba(255,255,255,0.06)',
+            borderWidth: '1px',
+          }}
+        >
+          <CardHeader>
+            <CardTitle style={{ color: '#FFFFFF' }}>
+              Individual Attendance Summary
+            </CardTitle>
+            <CardDescription style={{ color: '#A1A1AA' }}>
+              Monthly attendance breakdown for {selectedEmployee.name}
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <EmployeeAttendancePieChart
+              data={[
+                {
+                  name: 'Present (On-time)',
+                  value: selectedEmployee.presentDays - selectedEmployee.lateDays,
+                  color: '#10B981',
+                },
+                {
+                  name: 'Late Coming',
+                  value: selectedEmployee.lateDays,
+                  color: '#F59E0B',
+                },
+                {
+                  name: 'Absent',
+                  value: absentDays,
+                  color: '#EF4444',
+                },
+              ]}
+              title="Attendance Distribution"
+            />
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  )
+}
