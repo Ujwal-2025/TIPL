@@ -57,10 +57,10 @@ export default function Navbar() {
                     >
                         <button
                             className={cn(
-                                "relative text-sm font-medium transition-all duration-200",
+                                "glassy-nav__item px-4 py-2 text-sm font-medium transition-all duration-200",
                                 pathname?.startsWith('/admin/creation')
-                                    ? "text-white after:absolute after:bottom-[-8px] after:left-0 after:right-0 after:h-[2px] after:bg-white after:rounded-full after:shadow-[0_0_8px_rgba(255,255,255,0.6)]"
-                                    : "text-white/90 hover:text-white"
+                                    ? "glassy-nav__item--active"
+                                    : ""
                             )}
                         >
                             Creation

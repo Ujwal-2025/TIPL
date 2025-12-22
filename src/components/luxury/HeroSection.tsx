@@ -37,17 +37,17 @@ export default function HeroSection() {
 
             {/* CTA: View Attendance only */}
             <motion.div
-                className="mt-10 flex items-center"
+                className="mt-12 flex items-center"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.7, duration: 0.6 }}
             >
                 <Link href="/admin/attendance/group">
                     <motion.button
-                        className="glassy-nav__item glassy-nav__item--medium font-semibold"
+                        className="glassy-nav__item glassy-nav__item--medium font-semibold text-base px-10 py-3"
                         style={{ color: '#FFFFFF' }}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
+                        whileHover={{ scale: 1.08, y: -4 }}
+                        whileTap={{ scale: 0.96 }}
                     >
                         View Attendance
                     </motion.button>
