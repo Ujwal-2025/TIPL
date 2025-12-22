@@ -343,47 +343,17 @@ export default function SingleEmployeeAttendancePage() {
               {/* Calendar - Hidden by default */}
               {showCalendar && (
                 <div className="flex justify-center">
-                  <style>{`
-                    .react-calendar {
-                      background-color: #0E0F12;
-                      color: #FFFFFF;
-                      border: 1px solid rgba(255,255,255,0.1);
-                      border-radius: 8px;
-                      font-family: inherit;
-                    }
-                    .react-calendar__month-view__days__day {
-                      color: #A1A1AA;
-                    }
-                    .react-calendar__tile {
-                      padding: 0.75em 0.5em;
-                    }
-                    .react-calendar__tile:hover {
-                      background-color: rgba(99, 102, 241, 0.2);
-                    }
-                    .react-calendar__tile--active {
-                      background-color: #6366F1;
-                      color: #FFFFFF;
-                    }
-                    .react-calendar__navigation {
-                      margin-bottom: 1em;
-                    }
-                    .react-calendar__navigation button {
-                      color: #FFFFFF;
-                    }
-                    .react-calendar__month-view__weekdays__weekday {
-                      color: #6366F1;
-                      font-weight: bold;
-                    }
-                  `}</style>
-                  <Calendar
-                    onChange={setSelectedDate}
-                    value={selectedDate}
-                    tileClassName={({ date }) => {
-                      const dateStr = format(date, 'yyyy-MM-dd')
-                      const selectedStr = format(selectedDate, 'yyyy-MM-dd')
-                      return dateStr === selectedStr ? 'react-calendar__tile--active' : ''
-                    }}
-                  />
+                  <div className="glassy-calendar">
+                    <Calendar
+                      onChange={setSelectedDate}
+                      value={selectedDate}
+                      tileClassName={({ date }) => {
+                        const dateStr = format(date, 'yyyy-MM-dd')
+                        const selectedStr = format(selectedDate, 'yyyy-MM-dd')
+                        return dateStr === selectedStr ? 'react-calendar__tile--active' : ''
+                      }}
+                    />
+                  </div>
                 </div>
               )}
 

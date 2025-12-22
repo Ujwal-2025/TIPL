@@ -220,6 +220,94 @@
   to { transform: rotate(360deg); }
 }
 
+/* Glassy Calendar - matches the glowing nav visual language */
+.glassy-calendar {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius: 12px;
+  padding: 0.5rem;
+  backdrop-filter: blur(18px) saturate(140%) brightness(1.02);
+  -webkit-backdrop-filter: blur(18px) saturate(140%) brightness(1.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.04),
+    inset 0 -1px 4px rgba(0,0,0,0.45),
+    0 16px 40px rgba(2,6,23,0.45),
+    0 0 24px rgba(99,102,241,0.08);
+  position: relative;
+}
+
+
+/* Disable full-calendar rotating border; use per-tile hover accents below */
+.glassy-calendar::before {
+  content: '';
+  display: none;
+}
+
+.glassy-calendar * { position: relative; z-index: 1; }
+
+.glassy-calendar .react-calendar {
+  background: transparent;
+  border: none;
+  color: #FFFFFF;
+  font-family: inherit;
+}
+
+.glassy-calendar .react-calendar__navigation button {
+  color: #FFFFFF;
+  background: transparent;
+  border: none;
+}
+
+.glassy-calendar .react-calendar__month-view__weekdays__weekday {
+  color: var(--luxury-accent);
+  font-weight: 600;
+}
+
+.glassy-calendar .react-calendar__tile {
+  padding: 0.6em 0.4em;
+  border-radius: 8px;
+  color: #A1A1AA;
+}
+
+.glassy-calendar .react-calendar__tile:hover {
+  background: rgba(99,102,241,0.12);
+  color: #FFFFFF;
+}
+
+.glassy-calendar .react-calendar__tile--active {
+  background: linear-gradient(90deg, rgba(99,102,241,0.95), rgba(99,102,241,0.8));
+  color: #FFFFFF;
+  box-shadow: 0 8px 24px rgba(99,102,241,0.18), 0 0 12px rgba(34,211,238,0.06);
+}
+
+/* Per-tile rotating gradient accent that appears only on hover/focus/active */
+.glassy-calendar .react-calendar__tile {
+  position: relative; /* make tile the containing block for ::before */
+  overflow: visible;
+}
+
+.glassy-calendar .react-calendar__tile::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 10px;
+  background: conic-gradient(from 0deg, rgba(59,130,246,0.95), rgba(34,211,238,0.9), rgba(99,102,241,0.95));
+  filter: blur(8px);
+  opacity: 0;
+  z-index: -1;
+  pointer-events: none;
+  transform: scale(0.96);
+  transition: opacity 180ms ease, transform 220ms cubic-bezier(.2,.9,.2,1);
+  animation: tipl-rotate 8s linear infinite;
+}
+
+.glassy-calendar .react-calendar__tile:hover::before,
+.glassy-calendar .react-calendar__tile:focus::before,
+.glassy-calendar .react-calendar__tile--active::before {
+  opacity: 0.45;
+  transform: scale(1);
+}
+
 /* Sidebar variant - keep layout unchanged but give glowing accents */
 .glassy-sidebar .glassy-nav__item {
   display: block;
