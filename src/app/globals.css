@@ -108,7 +108,7 @@
   gap: 1.5rem;
   align-items: center;
   padding: 0.5rem 0.75rem;
-  background: linear-gradient(135deg, rgba(59,130,246,0.04), rgba(34,211,238,0.02), rgba(99,102,241,0.02));
+  background: linear-gradient(135deg, rgba(0,229,255,0.04), rgba(0,229,255,0.02), rgba(0,229,255,0.02));
   border-radius: 9999px;
   backdrop-filter: blur(18px) saturate(145%) brightness(1.1);
   -webkit-backdrop-filter: blur(18px) saturate(145%) brightness(1.1);
@@ -116,7 +116,7 @@
     inset 0 1px 0 rgba(255,255,255,0.1),
     inset 0 -1px 2px rgba(0,0,0,0.25),
     0 8px 36px rgba(2,6,23,0.35),
-    0 0 20px rgba(59,130,246,0.12);
+    0 0 20px rgba(0,229,255,0.12);
 }
 
 .glassy-nav::before {
@@ -125,7 +125,7 @@
   position: absolute;
   inset: -2px;
   border-radius: 9999px;
-  background: conic-gradient(from 0deg, rgba(59,130,246,0.9), rgba(34,211,238,0.85), rgba(99,102,241,0.9), rgba(59,130,246,0.9));
+  background: conic-gradient(from 0deg, rgba(0,229,255,0.95), rgba(0,229,255,0.85), rgba(0,229,255,0.9), rgba(0,229,255,0.95));
   filter: blur(8px);
   opacity: 0; /* hidden by default; glow on hover */
   z-index: 0;
@@ -163,7 +163,7 @@
   position: absolute;
   inset: -2px;
   border-radius: 9999px;
-  background: conic-gradient(from 0deg, rgba(59,130,246,0.95), rgba(34,211,238,0.9), rgba(99,102,241,0.95));
+  background: conic-gradient(from 0deg, rgba(0,229,255,0.95), rgba(0,229,255,0.9), rgba(0,229,255,0.95));
   filter: blur(6px);
   opacity: 0.0; /* base invisible, appear on hover/active */
   z-index: -1;
@@ -182,16 +182,16 @@
   box-shadow: 
     inset 0 1px 0 rgba(255,255,255,0.12),
     inset 0 -1px 2px rgba(0,0,0,0.15),
-    0 8px 28px rgba(59,130,246,0.15),
-    0 0 12px rgba(34,211,238,0.1);
+    0 8px 28px rgba(0,229,255,0.15),
+    0 0 12px rgba(0,229,255,0.1);
 }
 
 .glassy-nav__item--active {
   box-shadow: 
     inset 0 1px 0 rgba(255,255,255,0.12),
     inset 0 -1px 2px rgba(0,0,0,0.2),
-    0 12px 36px rgba(59,130,246,0.25),
-    0 0 16px rgba(34,211,238,0.15);
+    0 12px 36px rgba(0,229,255,0.25),
+    0 0 16px rgba(0,229,255,0.15);
 }
 
 /* Small variant for compact buttons (header/home/date picker) */
@@ -223,7 +223,7 @@
 
 /* Focus-visible outline for accessibility */
 .glassy-nav__item:focus-visible {
-  box-shadow: 0 0 0 3px rgba(59,130,246,0.14), 0 8px 24px rgba(34,211,238,0.06);
+  box-shadow: 0 0 0 3px rgba(0,229,255,0.14), 0 8px 24px rgba(0,229,255,0.06);
 }
 
 @keyframes tipl-rotate {
@@ -242,7 +242,7 @@
     inset 0 1px 0 rgba(255,255,255,0.04),
     inset 0 -1px 4px rgba(0,0,0,0.45),
     0 16px 40px rgba(2,6,23,0.45),
-    0 0 24px rgba(99,102,241,0.08);
+    0 0 24px rgba(0,229,255,0.08);
   position: relative;
 }
 
@@ -280,14 +280,14 @@
 }
 
 .glassy-calendar .react-calendar__tile:hover {
-  background: rgba(99,102,241,0.12);
+  background: rgba(0,229,255,0.12);
   color: #FFFFFF;
 }
 
 .glassy-calendar .react-calendar__tile--active {
-  background: linear-gradient(90deg, rgba(99,102,241,0.95), rgba(99,102,241,0.8));
+  background: linear-gradient(90deg, rgba(0,229,255,0.95), rgba(0,229,255,0.8));
   color: #FFFFFF;
-  box-shadow: 0 8px 24px rgba(99,102,241,0.18), 0 0 12px rgba(34,211,238,0.06);
+  box-shadow: 0 8px 24px rgba(0,229,255,0.18), 0 0 12px rgba(0,229,255,0.06);
 }
 
 /* Minimal variant for compact date picker appearance */
@@ -306,7 +306,7 @@
 }
 
 .glassy-calendar--minimal .react-calendar__tile:hover {
-  background: rgba(99,102,241,0.12);
+  background: rgba(0,229,255,0.12);
 }
 
 .glassy-calendar--minimal .react-calendar__tile::before {
@@ -325,7 +325,7 @@
   padding: 0.65rem 2.5rem 0.65rem 1rem;
   border-radius: 9999px;
   background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-  border: 1px solid rgba(99,102,241,0.4);
+  border: 1px solid rgba(0,229,255,0.4);
   color: #FFFFFF;
   backdrop-filter: blur(8px) saturate(120%);
   -webkit-backdrop-filter: blur(8px) saturate(120%);
@@ -333,7 +333,7 @@
     inset 0 1px 0 rgba(255,255,255,0.08),
     inset 0 -1px 0 rgba(0,0,0,0.1),
     0 8px 28px rgba(2,6,23,0.25),
-    0 0 16px rgba(99,102,241,0.06);
+    0 0 16px rgba(0,229,255,0.06);
   font-family: inherit;
   font-size: 0.95rem;
   font-weight: 500;
@@ -350,22 +350,22 @@
 }
 
 .glassy-select:hover {
-  border-color: rgba(99,102,241,0.6);
+  border-color: rgba(0,229,255,0.6);
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,0.12),
     inset 0 -1px 2px rgba(0,0,0,0.15),
-    0 12px 36px rgba(99,102,241,0.1),
-    0 0 20px rgba(99,102,241,0.08);
+    0 12px 36px rgba(0,229,255,0.1),
+    0 0 20px rgba(0,229,255,0.08);
   transform: translateY(-2px);
 }
 
 .glassy-select:focus {
-  border-color: rgba(99,102,241,0.8);
+  border-color: rgba(0,229,255,0.8);
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,0.12),
     inset 0 -1px 2px rgba(0,0,0,0.2),
-    0 16px 40px rgba(99,102,241,0.15),
-    0 0 24px rgba(99,102,241,0.12);
+    0 16px 40px rgba(0,229,255,0.15),
+    0 0 24px rgba(0,229,255,0.12);
 }
 
 /* Option styling - applied across all browsers */
@@ -374,19 +374,19 @@
   color: #FFFFFF;
   padding: 0.65rem;
   margin: 0.25rem 0;
-  border: 1px solid rgba(99,102,241,0.2);
+  border: 1px solid rgba(0,229,255,0.2);
   border-radius: 6px;
   font-family: inherit;
   font-size: 0.95rem;
 }
 
 .glassy-select option:hover {
-  background: linear-gradient(90deg, rgba(99,102,241,0.25), rgba(99,102,241,0.15));
+  background: linear-gradient(90deg, rgba(0,229,255,0.25), rgba(0,229,255,0.15));
   color: #FFFFFF;
 }
 
 .glassy-select option:checked {
-  background: linear-gradient(90deg, rgba(99,102,241,0.4), rgba(99,102,241,0.3));
+  background: linear-gradient(90deg, rgba(0,229,255,0.4), rgba(0,229,255,0.3));
   color: #FFFFFF;
 }
 
@@ -401,7 +401,7 @@
   position: absolute;
   inset: -6px;
   border-radius: 10px;
-  background: conic-gradient(from 0deg, rgba(59,130,246,0.95), rgba(34,211,238,0.9), rgba(99,102,241,0.95));
+  background: conic-gradient(from 0deg, rgba(0,229,255,0.95), rgba(0,229,255,0.9), rgba(0,229,255,0.95));
   filter: blur(8px);
   opacity: 0;
   z-index: -1;
@@ -479,7 +479,7 @@
   position: absolute;
   inset: 0;
   border-radius: 12px;
-  background: linear-gradient(90deg, rgba(16,185,129,0.92), rgba(6,182,212,0.85));
+  background: linear-gradient(90deg, rgba(0,229,255,0.95), rgba(0,229,255,0.85));
   filter: blur(12px);
   opacity: 0;
   transform: scale(0.96);
@@ -497,12 +497,12 @@
 .glassy-nav__item:focus-visible {
   color: #061022;
   transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(6,182,212,0.10), 0 0 16px rgba(16,185,129,0.06);
+  box-shadow: 0 10px 30px rgba(0,229,255,0.10), 0 0 16px rgba(0,229,255,0.06);
 }
 
 .glassy-nav__item--small { padding: 0.3rem 0.6rem; font-size: 0.9rem; }
 .glassy-nav__item--medium { padding: 0.45rem 0.9rem; font-size: 0.95rem; }
-.glassy-nav__item--active { box-shadow: 0 12px 36px rgba(6,182,212,0.14), 0 0 18px rgba(16,185,129,0.08); }
+.glassy-nav__item--active { box-shadow: 0 12px 36px rgba(0,229,255,0.14), 0 0 18px rgba(0,229,255,0.08); }
 
 @media (max-width: 768px) {
   .glassy-nav { flex-direction: column; gap: 0.5rem; padding: 0.5rem; }
