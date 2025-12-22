@@ -187,12 +187,7 @@ export default function SingleEmployeeAttendancePage() {
             <select
               value={selectedEmployeeId}
               onChange={(e) => setSelectedEmployeeId(e.target.value)}
-              className="w-full px-4 py-2 rounded-lg border"
-              style={{
-                backgroundColor: '#0E0F12',
-                color: '#FFFFFF',
-                borderColor: 'rgba(255,255,255,0.1)',
-              }}
+              className="glassy-select"
             >
               {mockEmployees.map((emp) => (
                 <option key={emp.id} value={emp.id}>
