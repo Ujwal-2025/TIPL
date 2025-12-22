@@ -54,7 +54,7 @@ export default function GroupAttendancePage() {
         {/* Navigation Buttons */}
         <div className="flex items-center justify-between mb-8">
           <Button
-            onClick={() => router.push('/dashboard')}
+            onClick={() => router.push('/luxury')}
             variant="outline"
             className="flex items-center gap-2"
             style={{ borderColor: 'rgba(255,255,255,0.1)', color: '#FFFFFF' }}
