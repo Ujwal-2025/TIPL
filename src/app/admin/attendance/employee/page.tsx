@@ -142,13 +142,13 @@ export default function SingleEmployeeAttendancePage() {
         <div className="flex items-center justify-between mb-8">
           <button
             type="button"
-            onClick={() => router.push('/admin/attendance/group')}
+            onClick={() => router.push('/luxury')}
             className="glassy-nav__item glassy-nav__item--small flex items-center gap-2"
             style={{ color: '#FFFFFF' }}
-            aria-label="Previous Group View"
+            aria-label="Home"
           >
             <ChevronLeft className="w-4 h-4" />
-            Previous: Group View
+            Home
           </button>
           <div>
             <AttendanceNav
@@ -324,16 +324,18 @@ export default function SingleEmployeeAttendancePage() {
                   View daily or monthly attendance summary for {selectedEmployee.name}
                 </CardDescription>
               </div>
-              <Button
+              <button
+                type="button"
                 onClick={() => setShowCalendar(!showCalendar)}
+                className={`glassy-nav__item glassy-nav__item--small`}
                 style={{
-                  backgroundColor: showCalendar ? '#6366F1' : '#1A1D23',
                   color: '#FFFFFF',
-                  border: '1px solid rgba(255,255,255,0.1)',
+                  backgroundColor: showCalendar ? 'rgba(99,102,241,0.12)' : 'transparent',
                 }}
+                aria-pressed={showCalendar}
               >
                 {showCalendar ? 'Hide' : 'Show'} Date Picker
-              </Button>
+              </button>
             </div>
           </CardHeader>
           <CardContent>
