@@ -443,3 +443,68 @@
     font-family: var(--font-geist-sans), system-ui, sans-serif;
   }
 }
+
+/* Unified Creative Navbar styles mapped to existing class names so components don't change */
+.glassy-nav {
+  display: flex;
+  gap: 1.25rem;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  background: rgba(0,0,0,0.6);
+  border-radius: 14px;
+  position: relative;
+}
+
+.glassy-nav--center {
+  justify-content: center !important;
+}
+
+.glassy-nav__item {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1rem;
+  border-radius: 12px;
+  color: #FFFFFF;
+  font-weight: 600;
+  background: transparent;
+  transition: color 220ms ease, transform 200ms cubic-bezier(.2,.9,.2,1), box-shadow 220ms ease;
+}
+
+.glassy-nav__item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background: linear-gradient(90deg, rgba(16,185,129,0.92), rgba(6,182,212,0.85));
+  filter: blur(12px);
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 260ms ease, transform 260ms cubic-bezier(.2,.9,.2,1);
+  z-index: -1;
+}
+
+.glassy-nav__item:hover::before,
+.glassy-nav__item:focus-visible::before {
+  opacity: 0.95;
+  transform: scale(1);
+}
+
+.glassy-nav__item:hover,
+.glassy-nav__item:focus-visible {
+  color: #061022;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(6,182,212,0.10), 0 0 16px rgba(16,185,129,0.06);
+}
+
+.glassy-nav__item--small { padding: 0.3rem 0.6rem; font-size: 0.9rem; }
+.glassy-nav__item--medium { padding: 0.45rem 0.9rem; font-size: 0.95rem; }
+.glassy-nav__item--active { box-shadow: 0 12px 36px rgba(6,182,212,0.14), 0 0 18px rgba(16,185,129,0.08); }
+
+@media (max-width: 768px) {
+  .glassy-nav { flex-direction: column; gap: 0.5rem; padding: 0.5rem; }
+  .glassy-nav__item { width: 100%; }
+}
