@@ -196,6 +196,12 @@
   font-size: 0.875rem;
 }
 
+/* Medium variant for slightly larger header buttons (Home, Date Picker) */
+.glassy-nav__item--medium {
+  padding: 0.45rem 0.9rem;
+  font-size: 0.95rem;
+}
+
 /* Centered nav layout for in-card toggles */
 .glassy-nav--center {
   justify-content: center !important;
@@ -278,6 +284,35 @@
   background: linear-gradient(90deg, rgba(99,102,241,0.95), rgba(99,102,241,0.8));
   color: #FFFFFF;
   box-shadow: 0 8px 24px rgba(99,102,241,0.18), 0 0 12px rgba(34,211,238,0.06);
+}
+
+/* Minimal variant for compact date picker appearance */
+.glassy-calendar--minimal {
+  padding: 0.15rem;
+  border-radius: 8px;
+  border: none;
+  box-shadow: none;
+  background: transparent;
+}
+
+.glassy-calendar--minimal .react-calendar__tile {
+  padding: 0.45em 0.3em;
+  border-radius: 6px;
+  font-size: 0.875rem;
+}
+
+.glassy-calendar--minimal .react-calendar__tile:hover {
+  background: rgba(99,102,241,0.12);
+}
+
+.glassy-calendar--minimal .react-calendar__tile::before {
+  filter: blur(6px);
+  opacity: 0; /* reduce per-tile glow by default */
+}
+
+.glassy-calendar--minimal .react-calendar__tile:hover::before,
+.glassy-calendar--minimal .react-calendar__tile--active::before {
+  opacity: 0.32;
 }
 
 /* Per-tile rotating gradient accent that appears only on hover/focus/active */

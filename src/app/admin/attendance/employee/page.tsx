@@ -9,7 +9,7 @@ import EmployeeAttendancePieChart from '@/components/attendance/EmployeeAttendan
 import AttendanceNav from '@/components/attendance/AttendanceNav'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Home } from 'lucide-react'
 
 // Mock employee data - in production, this would come from API/database
 const mockEmployees = [
@@ -143,11 +143,11 @@ export default function SingleEmployeeAttendancePage() {
           <button
             type="button"
             onClick={() => router.push('/luxury')}
-            className="glassy-nav__item glassy-nav__item--small flex items-center gap-2"
+            className="glassy-nav__item glassy-nav__item--medium flex items-center gap-2"
             style={{ color: '#FFFFFF' }}
             aria-label="Home"
           >
-            <ChevronLeft className="w-4 h-4" />
+            <Home className="w-5 h-5" />
             Home
           </button>
           <div>
@@ -327,7 +327,7 @@ export default function SingleEmployeeAttendancePage() {
               <button
                 type="button"
                 onClick={() => setShowCalendar(!showCalendar)}
-                className={`glassy-nav__item glassy-nav__item--small`}
+                className={`glassy-nav__item glassy-nav__item--medium`}
                 style={{
                   color: '#FFFFFF',
                   backgroundColor: showCalendar ? 'rgba(99,102,241,0.12)' : 'transparent',
@@ -343,7 +343,7 @@ export default function SingleEmployeeAttendancePage() {
               {/* Calendar - Hidden by default */}
               {showCalendar && (
                 <div className="flex justify-center">
-                  <div className="glassy-calendar">
+                  <div className="glassy-calendar glassy-calendar--minimal">
                     <Calendar
                       onChange={setSelectedDate}
                       value={selectedDate}
