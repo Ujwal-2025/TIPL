@@ -186,7 +186,7 @@ export default function GroupAttendancePage() {
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-bold" style={{ color: '#10B981' }}>
-                {attendanceData.presentToday}
+                {viewMode === 'daily' ? dailyData.present : attendanceData.presentToday}
               </div>
             </CardContent>
           </Card>
@@ -199,7 +199,7 @@ export default function GroupAttendancePage() {
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-bold" style={{ color: '#F59E0B' }}>
-                {attendanceData.lateComingEmployees}
+                {viewMode === 'daily' ? dailyData.late : attendanceData.lateComingEmployees}
               </div>
             </CardContent>
           </Card>
@@ -212,7 +212,7 @@ export default function GroupAttendancePage() {
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-bold" style={{ color: '#8B5CF6' }}>
-                {attendanceData.earlyCheckoutEmployees}
+                {viewMode === 'daily' ? dailyData.earlyCheckout : attendanceData.earlyCheckoutEmployees}
               </div>
             </CardContent>
           </Card>
