@@ -2,6 +2,9 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Calendar from 'react-calendar'
+import { format } from 'date-fns'
+import 'react-calendar/dist/Calendar.css'
 import EmployeeAttendancePieChart from '@/components/attendance/EmployeeAttendancePieChart'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -40,6 +43,7 @@ const mockEmployees = [
 
 export default function SingleEmployeeAttendancePage() {
   const [selectedEmployeeId, setSelectedEmployeeId] = useState(mockEmployees[0].id)
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date())
 
   // Find selected employee
   const selectedEmployee = mockEmployees.find((emp) => emp.id === selectedEmployeeId)
@@ -50,40 +54,83 @@ export default function SingleEmployeeAttendancePage() {
     return <div>Employee not found</div>
   }
 
+  // Calculate daily attendance data based on selected date (mock logic)
+  // In production, this would fetch actual data from API
+  const getDailyAttendanceForDate = () => {
+    const day = selectedDate.getDay()
+    // Mock logic: different attendance for different days
+    const statuses = ['PRESENT', 'LATE', 'ABSENT', 'EARLY_CHECKOUT']
+    const status = statuses[day % statuses.length]
+    
+    if (status === 'PRESENT') return { present: 1, late: 0, absent: 0, earlyCheckout: 0 }
+    if (status === 'LATE') return { present: 0, late: 1, absent: 0, earlyCheckout: 0 }
+    if (status === 'ABSENT') return { present: 0, late: 0, absent: 1, earlyCheckout: 0 }
+    return { present: 0, late: 0, absent: 0, earlyCheckout: 1 }
+  }
+
+  const dailyData = getDailyAttendanceForDate()
+
   // Calculate attendance metrics
   const absentDays =
     selectedEmployee.totalWorkingDays -
     selectedEmployee.presentDays
-  const earlyCheckoutDays =
-    selectedEmployee.presentDays -
-    selectedEmployee.lateDays -
-    (selectedEmployee.presentDays -
-      selectedEmployee.lateDays -
-      absentDays)
+  const earlyCheckoutDays = 2 // Mock data
 
-  // Prepare data for pie chart
-  const pieChartData = [
+  // Monthly data
+  const monthlyData = {
+    presentDays: selectedEmployee.presentDays,
+    lateDays: selectedEmployee.lateDays,
+    absentDays: absentDays,
+    earlyCheckoutDays: earlyCheckoutDays,
+  }
+
+  // Prepare data for monthly pie chart
+  const monthlyPieChartData = [
     {
-      name: 'Present Days',
-      value: selectedEmployee.presentDays - selectedEmployee.lateDays,
+      name: 'Present (On-time)',
+      value: monthlyData.presentDays - monthlyData.lateDays,
       color: '#10B981',
     },
     {
-      name: 'Late Coming Days',
-      value: selectedEmployee.lateDays,
+      name: 'Late Coming',
+      value: monthlyData.lateDays,
       color: '#F59E0B',
     },
     {
-      name: 'Early Checkout Days',
-      value: Math.max(0, selectedEmployee.presentDays - selectedEmployee.lateDays - (selectedEmployee.presentDays - selectedEmployee.lateDays)),
+      name: 'Early Checkout',
+      value: monthlyData.earlyCheckoutDays,
       color: '#8B5CF6',
     },
     {
-      name: 'Absent Days',
-      value: absentDays,
+      name: 'Absent',
+      value: monthlyData.absentDays,
       color: '#EF4444',
     },
-  ].filter((item) => item.value > 0) // Only show categories with values > 0
+  ]
+
+  // Prepare data for daily pie chart based on selected date
+  const dailyPieChartData = [
+    {
+      name: 'Present (On-time)',
+      value: dailyData.present,
+      color: '#10B981',
+    },
+    {
+      name: 'Late Coming',
+      value: dailyData.late,
+      color: '#F59E0B',
+    },
+    {
+      name: 'Early Checkout',
+      value: dailyData.earlyCheckout,
+      color: '#8B5CF6',
+    },
+    {
+      name: 'Absent',
+      value: dailyData.absent,
+      color: '#EF4444',
+    },
+  ].filter((item) => item.value > 0)
 
   return (
     <div className="min-h-screen p-6" style={{ backgroundColor: '#0E0F12' }}>
@@ -270,27 +317,106 @@ export default function SingleEmployeeAttendancePage() {
           </CardHeader>
           <CardContent>
             <EmployeeAttendancePieChart
-              data={[
-                {
-                  name: 'Present (On-time)',
-                  value: selectedEmployee.presentDays - selectedEmployee.lateDays,
-                  color: '#10B981',
-                },
-                {
-                  name: 'Late Coming',
-                  value: selectedEmployee.lateDays,
-                  color: '#F59E0B',
-                },
-                {
-                  name: 'Absent',
-                  value: absentDays,
-                  color: '#EF4444',
-                },
-              ]}
-              title="Attendance Distribution"
+              data={monthlyPieChartData}
+              title="Monthly Attendance Distribution"
             />
           </CardContent>
         </Card>
+
+        {/* Calendar and Daily Chart */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-8">
+          {/* Calendar Card */}
+          <Card
+            style={{
+              backgroundColor: '#1A1D23',
+              borderColor: 'rgba(255,255,255,0.06)',
+              borderWidth: '1px',
+            }}
+          >
+            <CardHeader>
+              <CardTitle style={{ color: '#FFFFFF' }}>
+                Select Date
+              </CardTitle>
+              <CardDescription style={{ color: '#A1A1AA' }}>
+                Click a date to view attendance
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="flex justify-center">
+              <style>{`
+                .react-calendar {
+                  background-color: #0E0F12;
+                  color: #FFFFFF;
+                  border: 1px solid rgba(255,255,255,0.1);
+                  border-radius: 8px;
+                  font-family: inherit;
+                }
+                .react-calendar__month-view__days__day {
+                  color: #A1A1AA;
+                }
+                .react-calendar__month-view__days__day--weekend {
+                  color: #A1A1AA;
+                }
+                .react-calendar__tile {
+                  padding: 0.75em 0.5em;
+                }
+                .react-calendar__tile:hover {
+                  background-color: rgba(99, 102, 241, 0.2);
+                }
+                .react-calendar__tile--active {
+                  background-color: #6366F1;
+                  color: #FFFFFF;
+                }
+                .react-calendar__navigation {
+                  margin-bottom: 1em;
+                }
+                .react-calendar__navigation button {
+                  color: #FFFFFF;
+                }
+                .react-calendar__month-view__weekdays__weekday {
+                  color: #6366F1;
+                  font-weight: bold;
+                }
+              `}</style>
+              <Calendar
+                onChange={setSelectedDate}
+                value={selectedDate}
+                tileClassName={({ date }) => {
+                  const dateStr = format(date, 'yyyy-MM-dd')
+                  const selectedStr = format(selectedDate, 'yyyy-MM-dd')
+                  return dateStr === selectedStr ? 'react-calendar__tile--active' : ''
+                }}
+              />
+            </CardContent>
+          </Card>
+
+          {/* Daily Attendance Chart */}
+          <div className="lg:col-span-2">
+            <Card
+              style={{
+                backgroundColor: '#1A1D23',
+                borderColor: 'rgba(255,255,255,0.06)',
+                borderWidth: '1px',
+              }}
+            >
+              <CardHeader>
+                <CardTitle style={{ color: '#FFFFFF' }}>
+                  Attendance on {format(selectedDate, 'MMM dd, yyyy')}
+                </CardTitle>
+                <CardDescription style={{ color: '#A1A1AA' }}>
+                  Daily attendance status for the selected date
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <EmployeeAttendancePieChart
+                  data={dailyPieChartData.length > 0 ? dailyPieChartData : [
+                    { name: 'No Data', value: 1, color: '#6B7280' }
+                  ]}
+                  title={`${format(selectedDate, 'EEEE')} - Attendance`}
+                />
+              </CardContent>
+            </Card>
+          </div>
+        </div>
       </div>
     </div>
   )
