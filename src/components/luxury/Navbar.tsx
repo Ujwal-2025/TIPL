@@ -15,7 +15,7 @@ export default function Navbar() {
     const navLinks = [
         { name: "Progress", href: "/admin/progress" },
         { name: "Salary", href: "/admin/salary" },
-        { name: "Attendance", href: "/attendance" },
+        { name: "Attendance", href: "/admin/attendance/group" },
     ];
 
     return (
@@ -43,11 +43,12 @@ export default function Navbar() {
 
                 {/* Navigation Links */}
                 <motion.div
-                    className="flex items-center gap-12"
+                    className="flex items-center justify-center w-full"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.3, duration: 0.5 }}
                 >
+                    <div className="glassy-nav mx-auto">
                     {/* Creation with Dropdown (keeps open while hovering trigger or menu) */}
                     <div
                         className="relative"
@@ -75,26 +76,24 @@ export default function Navbar() {
                     </div>
 
                     {/* Other Nav Links */}
-                    {navLinks.map((link, index) => {
-                        const isActive = pathname === link.href;
-                        return (
-                            <Link key={link.name} href={link.href}>
-                                <motion.div
-                                    className={cn(
-                                        "relative text-sm font-medium cursor-pointer transition-all duration-200",
-                                        isActive
-                                            ? "text-white after:absolute after:bottom-[-8px] after:left-0 after:right-0 after:h-[2px] after:bg-white after:rounded-full after:shadow-[0_0_8px_rgba(255,255,255,0.6)]"
-                                            : "text-white/80 hover:text-white"
-                                    )}
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    transition={{ delay: 0.4 + index * 0.1, duration: 0.5 }}
-                                >
-                                    {link.name}
-                                </motion.div>
-                            </Link>
-                        );
-                    })}
+                        {navLinks.map((link, index) => {
+                            const isActive = pathname === link.href;
+                            return (
+                                <Link key={link.name} href={link.href}>
+                                    <a
+                                        className={cn(
+                                            'glassy-nav__item text-sm font-medium',
+                                            isActive ? 'glassy-nav__item--active' : ''
+                                        )}
+                                        aria-current={isActive ? 'page' : undefined}
+                                        tabIndex={0}
+                                    >
+                                        {link.name}
+                                    </a>
+                                </Link>
+                            );
+                        })}
+                    </div>
                 </motion.div>
             </div>
         </motion.nav>

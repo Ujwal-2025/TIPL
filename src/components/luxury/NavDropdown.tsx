@@ -21,7 +21,7 @@ const getItemLink = (item: string) => {
         return '/admin/creation/project';
     }
     if (itemLower === 'attendance') {
-        return '/admin/attendance/create';
+        return '/admin/attendance/group';
     }
     return `#${itemLower}`;
 };
@@ -37,15 +37,13 @@ export default function NavDropdown({ items, onClose }: NavDropdownProps) {
         >
             {items.map((item, index) => (
                 <Link key={item} href={getItemLink(item)}>
-                    <motion.div
-                        className="block px-4 py-3 text-white/80 hover:text-white hover:bg-white/5 transition-colors text-sm font-medium cursor-pointer"
-                        initial={{ opacity: 0, x: -4 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.05, duration: 0.3 }}
+                    <a
+                        className="glassy-nav__item block px-4 py-3 text-white/80 hover:text-white hover:bg-white/5 transition-colors text-sm font-medium cursor-pointer"
+                        style={{ borderRadius: 8 }}
                         onClick={onClose}
                     >
                         {item}
-                    </motion.div>
+                    </a>
                 </Link>
             ))}
         </motion.div>
