@@ -10,9 +10,10 @@ type Props = {
   onViewModeChange: (v: 'daily' | 'monthly') => void
   showScope?: boolean
   showView?: boolean
+  center?: boolean
 }
 
-export default function AttendanceNav({ scope = 'group', onScopeChange, viewMode, onViewModeChange, showScope = true, showView = true }: Props) {
+export default function AttendanceNav({ scope = 'group', onScopeChange, viewMode, onViewModeChange, showScope = true, showView = true, center = false }: Props) {
   const router = useRouter()
 
   const handleScope = (s: 'group' | 'individual') => {
@@ -23,7 +24,7 @@ export default function AttendanceNav({ scope = 'group', onScopeChange, viewMode
   }
 
   return (
-    <nav className="glassy-nav" aria-label="Attendance navigation">
+    <nav className={"glassy-nav" + (center ? ' glassy-nav--center' : '')} aria-label="Attendance navigation">
       {/* Scope toggles (optional) */}
       {showScope && (
         <>

@@ -140,15 +140,16 @@ export default function SingleEmployeeAttendancePage() {
       <div className="max-w-7xl mx-auto">
         {/* Navigation Buttons */}
         <div className="flex items-center justify-between mb-8">
-          <Button
+          <button
+            type="button"
             onClick={() => router.push('/admin/attendance/group')}
-            variant="outline"
-            className="flex items-center gap-2"
-            style={{ borderColor: 'rgba(255,255,255,0.1)', color: '#FFFFFF' }}
+            className="glassy-nav__item glassy-nav__item--small flex items-center gap-2"
+            style={{ color: '#FFFFFF' }}
+            aria-label="Previous Group View"
           >
             <ChevronLeft className="w-4 h-4" />
             Previous: Group View
-          </Button>
+          </button>
           <div>
             <AttendanceNav
               scope="individual"

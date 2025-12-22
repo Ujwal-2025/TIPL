@@ -190,6 +190,17 @@
     0 0 16px rgba(34,211,238,0.15);
 }
 
+/* Small variant for compact buttons (header/home/date picker) */
+.glassy-nav__item--small {
+  padding: 0.3rem 0.6rem;
+  font-size: 0.875rem;
+}
+
+/* Centered nav layout for in-card toggles */
+.glassy-nav--center {
+  justify-content: center !important;
+}
+
 /* Slight inner ring to add depth */
 .glassy-nav__item::after {
   content: '';

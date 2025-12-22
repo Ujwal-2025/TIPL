@@ -136,15 +136,16 @@ export default function GroupAttendancePage() {
       <div className="max-w-7xl mx-auto">
         {/* Navigation Buttons */}
         <div className="flex items-center justify-between mb-8">
-          <Button
+          <button
+            type="button"
             onClick={() => router.push('/luxury')}
-            variant="outline"
-            className="flex items-center gap-2"
-            style={{ borderColor: 'rgba(255,255,255,0.1)', color: '#FFFFFF' }}
+            className="glassy-nav__item glassy-nav__item--small flex items-center gap-2"
+            style={{ color: '#FFFFFF' }}
+            aria-label="Home"
           >
             <ChevronLeft className="w-4 h-4" />
             Home
-          </Button>
+          </button>
 
           <div>
             <AttendanceNav
@@ -234,16 +235,18 @@ export default function GroupAttendancePage() {
                   View daily or monthly attendance summary
                 </CardDescription>
               </div>
-              <Button
+              <button
+                type="button"
                 onClick={() => setShowCalendar(!showCalendar)}
+                className={`glassy-nav__item glassy-nav__item--small`}
                 style={{
-                  backgroundColor: showCalendar ? '#6366F1' : '#1A1D23',
                   color: '#FFFFFF',
-                  border: '1px solid rgba(255,255,255,0.1)',
+                  backgroundColor: showCalendar ? 'rgba(99,102,241,0.12)' : 'transparent',
                 }}
+                aria-pressed={showCalendar}
               >
                 {showCalendar ? 'Hide' : 'Show'} Date Picker
-              </Button>
+              </button>
             </div>
           </CardHeader>
           <CardContent>
