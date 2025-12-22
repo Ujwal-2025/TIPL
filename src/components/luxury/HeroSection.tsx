@@ -42,7 +42,7 @@ export default function HeroSection() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.7, duration: 0.6 }}
             >
-                <Link href="/attendance">
+                <Link href="/admin/attendance/group">
                     <motion.button
                         className="px-8 py-4 rounded-full bg-transparent text-white font-semibold text-base border border-indigo-500/50 hover:border-indigo-400 transition-all"
                         whileHover={{ scale: 1.05 }}
