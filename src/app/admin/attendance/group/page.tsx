@@ -13,6 +13,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 export default function GroupAttendancePage() {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date())
   const [viewMode, setViewMode] = useState<'daily' | 'monthly'>('monthly')
+  const [showCalendar, setShowCalendar] = useState(false)
   
   // Hardcoded data as per requirements - in production, this would come from an API
   const attendanceData = {
@@ -220,60 +221,76 @@ export default function GroupAttendancePage() {
         {/* Combined Calendar and Charts Card */}
         <Card style={{ backgroundColor: '#1A1D23', borderColor: 'rgba(255,255,255,0.06)', borderWidth: '1px' }} className="mt-8">
           <CardHeader>
-            <CardTitle style={{ color: '#FFFFFF' }}>Attendance Overview & Date Selection</CardTitle>
-            <CardDescription style={{ color: '#A1A1AA' }}>
-              Select a date to view daily attendance or see monthly summary
-            </CardDescription>
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle style={{ color: '#FFFFFF' }}>Attendance Overview</CardTitle>
+                <CardDescription style={{ color: '#A1A1AA' }}>
+                  View daily or monthly attendance summary
+                </CardDescription>
+              </div>
+              <Button
+                onClick={() => setShowCalendar(!showCalendar)}
+                style={{
+                  backgroundColor: showCalendar ? '#6366F1' : '#1A1D23',
+                  color: '#FFFFFF',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                }}
+              >
+                {showCalendar ? 'Hide' : 'Show'} Date Picker
+              </Button>
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              {/* Calendar */}
-              <div className="flex justify-center">
-                <style>{`
-                  .react-calendar {
-                    background-color: #0E0F12;
-                    color: #FFFFFF;
-                    border: 1px solid rgba(255,255,255,0.1);
-                    border-radius: 8px;
-                    font-family: inherit;
-                  }
-                  .react-calendar__month-view__days__day {
-                    color: #A1A1AA;
-                  }
-                  .react-calendar__tile {
-                    padding: 0.75em 0.5em;
-                  }
-                  .react-calendar__tile:hover {
-                    background-color: rgba(99, 102, 241, 0.2);
-                  }
-                  .react-calendar__tile--active {
-                    background-color: #6366F1;
-                    color: #FFFFFF;
-                  }
-                  .react-calendar__navigation {
-                    margin-bottom: 1em;
-                  }
-                  .react-calendar__navigation button {
-                    color: #FFFFFF;
-                  }
-                  .react-calendar__month-view__weekdays__weekday {
-                    color: #6366F1;
-                    font-weight: bold;
-                  }
-                `}</style>
-                <Calendar
-                  onChange={setSelectedDate}
-                  value={selectedDate}
-                  tileClassName={({ date }) => {
-                    const dateStr = format(date, 'yyyy-MM-dd')
-                    const selectedStr = format(selectedDate, 'yyyy-MM-dd')
-                    return dateStr === selectedStr ? 'react-calendar__tile--active' : ''
-                  }}
-                />
-              </div>
+            <div className={`grid gap-8 ${showCalendar ? 'grid-cols-1 lg:grid-cols-3' : 'grid-cols-1'}`}>
+              {/* Calendar - Hidden by default */}
+              {showCalendar && (
+                <div className="flex justify-center">
+                  <style>{`
+                    .react-calendar {
+                      background-color: #0E0F12;
+                      color: #FFFFFF;
+                      border: 1px solid rgba(255,255,255,0.1);
+                      border-radius: 8px;
+                      font-family: inherit;
+                    }
+                    .react-calendar__month-view__days__day {
+                      color: #A1A1AA;
+                    }
+                    .react-calendar__tile {
+                      padding: 0.75em 0.5em;
+                    }
+                    .react-calendar__tile:hover {
+                      background-color: rgba(99, 102, 241, 0.2);
+                    }
+                    .react-calendar__tile--active {
+                      background-color: #6366F1;
+                      color: #FFFFFF;
+                    }
+                    .react-calendar__navigation {
+                      margin-bottom: 1em;
+                    }
+                    .react-calendar__navigation button {
+                      color: #FFFFFF;
+                    }
+                    .react-calendar__month-view__weekdays__weekday {
+                      color: #6366F1;
+                      font-weight: bold;
+                    }
+                  `}</style>
+                  <Calendar
+                    onChange={setSelectedDate}
+                    value={selectedDate}
+                    tileClassName={({ date }) => {
+                      const dateStr = format(date, 'yyyy-MM-dd')
+                      const selectedStr = format(selectedDate, 'yyyy-MM-dd')
+                      return dateStr === selectedStr ? 'react-calendar__tile--active' : ''
+                    }}
+                  />
+                </div>
+              )}
 
               {/* Charts Section */}
-              <div className="lg:col-span-2 space-y-6">
+              <div className={showCalendar ? 'lg:col-span-2 space-y-6' : 'space-y-6'}>
                 {/* Toggle Buttons */}
                 <div className="flex gap-4 mb-4">
                   <Button
