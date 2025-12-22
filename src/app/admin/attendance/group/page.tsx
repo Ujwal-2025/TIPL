@@ -16,12 +16,23 @@ export default function GroupAttendancePage() {
     earlyCheckoutEmployees: 5,
   }
 
+  // Monthly attendance data
+  const monthlyData = {
+    totalEmployees: 100,
+    presentMonthly: 1840, // out of 2000 total working hours/days
+    lateComingMonthly: 240,
+    earlyCheckoutMonthly: 150,
+  }
+
   const router = useRouter()
 
-  // Calculate absent employees
+  // Calculate absent employees for daily
   const absentEmployees = attendanceData.totalEmployees - attendanceData.presentToday
 
-  // Prepare data for pie chart
+  // Calculate absent for monthly
+  const absentMonthly = monthlyData.totalEmployees * 20 - monthlyData.presentMonthly // 20 working days in month
+
+  // Prepare data for daily pie chart
   // Present (on-time) = Present - Late - Early Checkout
   const presentOnTime = attendanceData.presentToday - attendanceData.lateComingEmployees - attendanceData.earlyCheckoutEmployees
 
@@ -44,6 +55,32 @@ export default function GroupAttendancePage() {
     {
       name: 'Absent',
       value: absentEmployees,
+      color: '#EF4444',
+    },
+  ]
+
+  // Prepare data for monthly pie chart
+  const monthlyPresentOnTime = monthlyData.presentMonthly - monthlyData.lateComingMonthly - monthlyData.earlyCheckoutMonthly
+  
+  const monthlyPieChartData = [
+    {
+      name: 'Present (On-time)',
+      value: monthlyPresentOnTime,
+      color: '#10B981',
+    },
+    {
+      name: 'Late Coming',
+      value: monthlyData.lateComingMonthly,
+      color: '#F59E0B',
+    },
+    {
+      name: 'Early Checkout',
+      value: monthlyData.earlyCheckoutMonthly,
+      color: '#8B5CF6',
+    },
+    {
+      name: 'Absent',
+      value: absentMonthly,
       color: '#EF4444',
     },
   ]
@@ -151,7 +188,25 @@ export default function GroupAttendancePage() {
             />
           </CardContent>
         </Card>
+
+        {/* Monthly Pie Chart Card */}
+        <Card style={{ backgroundColor: '#1A1D23', borderColor: 'rgba(255,255,255,0.06)', borderWidth: '1px' }} className="mt-8">
+          <CardHeader>
+            <CardTitle style={{ color: '#FFFFFF' }}>Monthly Attendance Overview</CardTitle>
+            <CardDescription style={{ color: '#A1A1AA' }}>
+              Attendance distribution for the current month
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <AttendancePieChart
+              data={monthlyPieChartData}
+              title="Monthly Attendance Distribution"
+            />
+          </CardContent>
+        </Card>
       </div>
     </div>
   )
 }
+
+
