@@ -25,9 +25,6 @@ export default function Navbar() {
             animate={{ y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
         >
-            {/* Glassmorphic background */}
-            <div className="absolute inset-0 bg-black/40 backdrop-blur-md border-b border-white/6" />
-
             <div className="relative px-8 py-5 flex items-center justify-between max-w-7xl mx-auto w-full">
                 {/* Logo */}
                 <motion.div
