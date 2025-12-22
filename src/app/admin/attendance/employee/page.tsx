@@ -299,124 +299,99 @@ export default function SingleEmployeeAttendancePage() {
           </Card>
         </div>
 
-        {/* Pie Chart Card */}
+        {/* Combined Calendar and Charts Card */}
         <Card
           style={{
             backgroundColor: '#1A1D23',
             borderColor: 'rgba(255,255,255,0.06)',
             borderWidth: '1px',
           }}
+          className="mt-8"
         >
           <CardHeader>
             <CardTitle style={{ color: '#FFFFFF' }}>
-              Individual Attendance Summary
+              Attendance Overview & Date Selection
             </CardTitle>
             <CardDescription style={{ color: '#A1A1AA' }}>
-              Monthly attendance breakdown for {selectedEmployee.name}
+              Select a date to view daily attendance for {selectedEmployee.name} or see monthly summary
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <EmployeeAttendancePieChart
-              data={monthlyPieChartData}
-              title="Monthly Attendance Distribution"
-            />
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              {/* Calendar */}
+              <div className="flex justify-center">
+                <style>{`
+                  .react-calendar {
+                    background-color: #0E0F12;
+                    color: #FFFFFF;
+                    border: 1px solid rgba(255,255,255,0.1);
+                    border-radius: 8px;
+                    font-family: inherit;
+                  }
+                  .react-calendar__month-view__days__day {
+                    color: #A1A1AA;
+                  }
+                  .react-calendar__tile {
+                    padding: 0.75em 0.5em;
+                  }
+                  .react-calendar__tile:hover {
+                    background-color: rgba(99, 102, 241, 0.2);
+                  }
+                  .react-calendar__tile--active {
+                    background-color: #6366F1;
+                    color: #FFFFFF;
+                  }
+                  .react-calendar__navigation {
+                    margin-bottom: 1em;
+                  }
+                  .react-calendar__navigation button {
+                    color: #FFFFFF;
+                  }
+                  .react-calendar__month-view__weekdays__weekday {
+                    color: #6366F1;
+                    font-weight: bold;
+                  }
+                `}</style>
+                <Calendar
+                  onChange={setSelectedDate}
+                  value={selectedDate}
+                  tileClassName={({ date }) => {
+                    const dateStr = format(date, 'yyyy-MM-dd')
+                    const selectedStr = format(selectedDate, 'yyyy-MM-dd')
+                    return dateStr === selectedStr ? 'react-calendar__tile--active' : ''
+                  }}
+                />
+              </div>
+
+              {/* Charts Section */}
+              <div className="lg:col-span-2 space-y-6">
+                {/* Daily Chart */}
+                <div>
+                  <h3 style={{ color: '#FFFFFF' }} className="font-semibold mb-4">
+                    {format(selectedDate, 'EEEE, MMM dd, yyyy')}
+                  </h3>
+                  <EmployeeAttendancePieChart
+                    data={dailyPieChartData.length > 0 ? dailyPieChartData : [
+                      { name: 'No Data', value: 1, color: '#6B7280' }
+                    ]}
+                    title="Daily Attendance"
+                  />
+                </div>
+
+                {/* Monthly Chart */}
+                <div>
+                  <h3 style={{ color: '#FFFFFF' }} className="font-semibold mb-4">
+                    Monthly Summary
+                  </h3>
+                  <EmployeeAttendancePieChart
+                    data={monthlyPieChartData}
+                    title="Monthly Attendance"
+                  />
+                </div>
+              </div>
+            </div>
           </CardContent>
         </Card>
-
-        {/* Calendar and Daily Chart */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-8">
-          {/* Calendar Card */}
-          <Card
-            style={{
-              backgroundColor: '#1A1D23',
-              borderColor: 'rgba(255,255,255,0.06)',
-              borderWidth: '1px',
-            }}
-          >
-            <CardHeader>
-              <CardTitle style={{ color: '#FFFFFF' }}>
-                Select Date
-              </CardTitle>
-              <CardDescription style={{ color: '#A1A1AA' }}>
-                Click a date to view attendance
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="flex justify-center">
-              <style>{`
-                .react-calendar {
-                  background-color: #0E0F12;
-                  color: #FFFFFF;
-                  border: 1px solid rgba(255,255,255,0.1);
-                  border-radius: 8px;
-                  font-family: inherit;
-                }
-                .react-calendar__month-view__days__day {
-                  color: #A1A1AA;
-                }
-                .react-calendar__month-view__days__day--weekend {
-                  color: #A1A1AA;
-                }
-                .react-calendar__tile {
-                  padding: 0.75em 0.5em;
-                }
-                .react-calendar__tile:hover {
-                  background-color: rgba(99, 102, 241, 0.2);
-                }
-                .react-calendar__tile--active {
-                  background-color: #6366F1;
-                  color: #FFFFFF;
-                }
-                .react-calendar__navigation {
-                  margin-bottom: 1em;
-                }
-                .react-calendar__navigation button {
-                  color: #FFFFFF;
-                }
-                .react-calendar__month-view__weekdays__weekday {
-                  color: #6366F1;
-                  font-weight: bold;
-                }
-              `}</style>
-              <Calendar
-                onChange={setSelectedDate}
-                value={selectedDate}
-                tileClassName={({ date }) => {
-                  const dateStr = format(date, 'yyyy-MM-dd')
-                  const selectedStr = format(selectedDate, 'yyyy-MM-dd')
-                  return dateStr === selectedStr ? 'react-calendar__tile--active' : ''
-                }}
-              />
-            </CardContent>
-          </Card>
-
-          {/* Daily Attendance Chart */}
-          <div className="lg:col-span-2">
-            <Card
-              style={{
-                backgroundColor: '#1A1D23',
-                borderColor: 'rgba(255,255,255,0.06)',
-                borderWidth: '1px',
-              }}
-            >
-              <CardHeader>
-                <CardTitle style={{ color: '#FFFFFF' }}>
-                  Attendance on {format(selectedDate, 'MMM dd, yyyy')}
-                </CardTitle>
-                <CardDescription style={{ color: '#A1A1AA' }}>
-                  Daily attendance status for the selected date
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <EmployeeAttendancePieChart
-                  data={dailyPieChartData.length > 0 ? dailyPieChartData : [
-                    { name: 'No Data', value: 1, color: '#6B7280' }
-                  ]}
-                  title={`${format(selectedDate, 'EEEE')} - Attendance`}
-                />
-              </CardContent>
-            </Card>
-          </div>
-        </div>
       </div>
     </div>
   )

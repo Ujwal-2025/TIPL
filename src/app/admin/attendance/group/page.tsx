@@ -2,12 +2,17 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Calendar from 'react-calendar'
+import { format } from 'date-fns'
+import 'react-calendar/dist/Calendar.css'
 import AttendancePieChart from '@/components/attendance/AttendancePieChart'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 export default function GroupAttendancePage() {
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date())
+  
   // Hardcoded data as per requirements - in production, this would come from an API
   const attendanceData = {
     totalEmployees: 100,
@@ -26,6 +31,21 @@ export default function GroupAttendancePage() {
 
   const router = useRouter()
 
+  // Get daily data for selected date (mock logic)
+  const getDailyAttendanceForDate = () => {
+    const day = selectedDate.getDay()
+    const statuses = [
+      { present: 90, late: 10, absent: 0, earlyCheckout: 5 },
+      { present: 85, late: 12, absent: 2, earlyCheckout: 1 },
+      { present: 92, late: 5, absent: 1, earlyCheckout: 2 },
+      { present: 88, late: 8, absent: 3, earlyCheckout: 1 },
+      { present: 95, late: 4, absent: 1, earlyCheckout: 0 },
+    ]
+    return statuses[day % statuses.length]
+  }
+
+  const dailyData = getDailyAttendanceForDate()
+
   // Calculate absent employees for daily
   const absentEmployees = attendanceData.totalEmployees - attendanceData.presentToday
 
@@ -35,6 +55,29 @@ export default function GroupAttendancePage() {
   // Prepare data for daily pie chart
   // Present (on-time) = Present - Late - Early Checkout
   const presentOnTime = attendanceData.presentToday - attendanceData.lateComingEmployees - attendanceData.earlyCheckoutEmployees
+
+  const dailyPieChartData = [
+    {
+      name: 'Present (On-time)',
+      value: dailyData.present - dailyData.late - dailyData.earlyCheckout,
+      color: '#10B981',
+    },
+    {
+      name: 'Late Coming',
+      value: dailyData.late,
+      color: '#F59E0B',
+    },
+    {
+      name: 'Early Checkout',
+      value: dailyData.earlyCheckout,
+      color: '#8B5CF6',
+    },
+    {
+      name: 'Absent',
+      value: dailyData.absent,
+      color: '#EF4444',
+    },
+  ]
 
   const pieChartData = [
     {
@@ -173,35 +216,86 @@ export default function GroupAttendancePage() {
           </Card>
         </div>
 
-        {/* Pie Chart Card */}
-        <Card style={{ backgroundColor: '#1A1D23', borderColor: 'rgba(255,255,255,0.06)', borderWidth: '1px' }}>
-          <CardHeader>
-            <CardTitle style={{ color: '#FFFFFF' }}>Today's Attendance Overview</CardTitle>
-            <CardDescription style={{ color: '#A1A1AA' }}>
-              Visual representation of attendance distribution
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <AttendancePieChart
-              data={pieChartData}
-              title="Today's Attendance Distribution"
-            />
-          </CardContent>
-        </Card>
-
-        {/* Monthly Pie Chart Card */}
+        {/* Combined Calendar and Charts Card */}
         <Card style={{ backgroundColor: '#1A1D23', borderColor: 'rgba(255,255,255,0.06)', borderWidth: '1px' }} className="mt-8">
           <CardHeader>
-            <CardTitle style={{ color: '#FFFFFF' }}>Monthly Attendance Overview</CardTitle>
+            <CardTitle style={{ color: '#FFFFFF' }}>Attendance Overview & Date Selection</CardTitle>
             <CardDescription style={{ color: '#A1A1AA' }}>
-              Attendance distribution for the current month
+              Select a date to view daily attendance or see monthly summary
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <AttendancePieChart
-              data={monthlyPieChartData}
-              title="Monthly Attendance Distribution"
-            />
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              {/* Calendar */}
+              <div className="flex justify-center">
+                <style>{`
+                  .react-calendar {
+                    background-color: #0E0F12;
+                    color: #FFFFFF;
+                    border: 1px solid rgba(255,255,255,0.1);
+                    border-radius: 8px;
+                    font-family: inherit;
+                  }
+                  .react-calendar__month-view__days__day {
+                    color: #A1A1AA;
+                  }
+                  .react-calendar__tile {
+                    padding: 0.75em 0.5em;
+                  }
+                  .react-calendar__tile:hover {
+                    background-color: rgba(99, 102, 241, 0.2);
+                  }
+                  .react-calendar__tile--active {
+                    background-color: #6366F1;
+                    color: #FFFFFF;
+                  }
+                  .react-calendar__navigation {
+                    margin-bottom: 1em;
+                  }
+                  .react-calendar__navigation button {
+                    color: #FFFFFF;
+                  }
+                  .react-calendar__month-view__weekdays__weekday {
+                    color: #6366F1;
+                    font-weight: bold;
+                  }
+                `}</style>
+                <Calendar
+                  onChange={setSelectedDate}
+                  value={selectedDate}
+                  tileClassName={({ date }) => {
+                    const dateStr = format(date, 'yyyy-MM-dd')
+                    const selectedStr = format(selectedDate, 'yyyy-MM-dd')
+                    return dateStr === selectedStr ? 'react-calendar__tile--active' : ''
+                  }}
+                />
+              </div>
+
+              {/* Charts Section */}
+              <div className="lg:col-span-2 space-y-6">
+                {/* Daily Chart */}
+                <div>
+                  <h3 style={{ color: '#FFFFFF' }} className="font-semibold mb-4">
+                    {format(selectedDate, 'EEEE, MMM dd, yyyy')}
+                  </h3>
+                  <AttendancePieChart
+                    data={dailyPieChartData}
+                    title="Daily Attendance"
+                  />
+                </div>
+
+                {/* Monthly Chart */}
+                <div>
+                  <h3 style={{ color: '#FFFFFF' }} className="font-semibold mb-4">
+                    Monthly Summary
+                  </h3>
+                  <AttendancePieChart
+                    data={monthlyPieChartData}
+                    title="Monthly Attendance"
+                  />
+                </div>
+              </div>
+            </div>
           </CardContent>
         </Card>
       </div>
