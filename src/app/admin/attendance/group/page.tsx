@@ -8,6 +8,7 @@ import 'react-calendar/dist/Calendar.css'
 import AttendancePieChart from '@/components/attendance/AttendancePieChart'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import AttendanceNav from '@/components/attendance/AttendanceNav'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 export default function GroupAttendancePage() {
@@ -144,14 +145,19 @@ export default function GroupAttendancePage() {
             <ChevronLeft className="w-4 h-4" />
             Home
           </Button>
-          <Button
-            onClick={() => router.push('/admin/attendance/employee')}
-            className="flex items-center gap-2"
-            style={{ backgroundColor: '#6366F1', color: '#FFFFFF', border: 'none' }}
-          >
-            Next: Individual View
-            <ChevronRight className="w-4 h-4" />
-          </Button>
+
+          <div>
+            <AttendanceNav
+              scope="group"
+              viewMode={viewMode}
+              onViewModeChange={(v) => setViewMode(v)}
+              onScopeChange={(s) => {
+                if (s === 'individual') router.push('/admin/attendance/employee')
+              }}
+              showScope={true}
+              showView={false}
+            />
+          </div>
         </div>
         {/* Header */}
         <div className="mb-8">
@@ -291,30 +297,16 @@ export default function GroupAttendancePage() {
 
               {/* Charts Section */}
               <div className={showCalendar ? 'lg:col-span-2 space-y-6' : 'space-y-6'}>
-                {/* Toggle Buttons */}
-                <div className="flex gap-4 mb-4">
-                  <Button
-                    onClick={() => setViewMode('daily')}
-                    className="flex-1"
-                    style={{
-                      backgroundColor: viewMode === 'daily' ? '#6366F1' : '#1A1D23',
-                      color: '#FFFFFF',
-                      border: viewMode === 'daily' ? '1px solid #6366F1' : '1px solid rgba(255,255,255,0.1)',
-                    }}
-                  >
-                    Daily View
-                  </Button>
-                  <Button
-                    onClick={() => setViewMode('monthly')}
-                    className="flex-1"
-                    style={{
-                      backgroundColor: viewMode === 'monthly' ? '#6366F1' : '#1A1D23',
-                      color: '#FFFFFF',
-                      border: viewMode === 'monthly' ? '1px solid #6366F1' : '1px solid rgba(255,255,255,0.1)',
-                    }}
-                  >
-                    Monthly View
-                  </Button>
+                {/* Toggle Buttons replaced by AttendanceNav for consistent look */}
+                <div className="mb-4">
+                  <AttendanceNav
+                    scope="group"
+                    viewMode={viewMode}
+                    onViewModeChange={(v) => setViewMode(v)}
+                    onScopeChange={(s) => { if (s === 'individual') router.push('/admin/attendance/employee') }}
+                    showScope={false}
+                    showView={true}
+                  />
                 </div>
 
                 {/* Chart Display */}
