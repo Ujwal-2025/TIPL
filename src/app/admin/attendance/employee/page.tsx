@@ -398,6 +398,7 @@ export default function SingleEmployeeAttendancePage() {
                     onScopeChange={(s) => { if (s === 'group') router.push('/admin/attendance/group') }}
                     showScope={false}
                     showView={true}
+                    center={true}
                   />
                 </div>
 
